@@ -3,10 +3,8 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EALoader.iml" filepath="$PROJECT_DIR$/EALoader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/catalogue/catalogue.iml" filepath="$PROJECT_DIR$/catalogue/catalogue.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ea/ea.iml" filepath="$PROJECT_DIR$/ea/ea.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ealoader/ealoader.iml" filepath="$PROJECT_DIR$/ealoader/ealoader.iml" />
       <module fileurl="file://$PROJECT_DIR$/ealoaderapp/ealoaderapp.iml" filepath="$PROJECT_DIR$/ealoaderapp/ealoaderapp.iml" />
-      <module fileurl="file://$PROJECT_DIR$/executor/executor.iml" filepath="$PROJECT_DIR$/executor/executor.iml" />
     </modules>
   </component>
 </project>

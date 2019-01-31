@@ -11,15 +11,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: info.picocli:picocli:3.8.2" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.0" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.11.1" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.11.1" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle:ojdbc8:18.3.0" level="project" />
-    <orderEntry type="library" name="Maven: org.sparx:eaapi:1.0.0" level="project" />
-    <orderEntry type="module" module-name="ealoader" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.enterprise:cdi-api:2.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.el:javax.el-api:3.0.0" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.interceptor:javax.interceptor-api:1.2" level="project" />
+    <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
+    <orderEntry type="library" name="Maven: org.sparx:eaapi:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: org.jooq.trial:jooq:3.11.7" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.12" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.0" level="project" />
   </component>
 </module>

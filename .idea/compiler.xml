@@ -6,18 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="catalogue" />
-        <module name="ea" />
+        <module name="ealoader" />
         <module name="ealoaderapp" />
-        <module name="executor" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="catalogue" target="1.5" />
-      <module name="ea" target="1.5" />
+    <bytecodeTargetLevel target="11">
+      <module name="ealoader" target="11" />
       <module name="EALoader" target="1.5" />
-      <module name="ealoaderapp" target="1.5" />
-      <module name="executor" target="1.5" />
+      <module name="ealoaderapp" target="11" />
     </bytecodeTargetLevel>
   </component>
 </project>

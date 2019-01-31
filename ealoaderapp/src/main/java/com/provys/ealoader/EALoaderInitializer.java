@@ -1,5 +1,6 @@
 package com.provys.ealoader;
 
+import com.provys.ealoader.executor.EALoadExecutor;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,11 +10,13 @@ import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
+import org.sparx.Repository;
 import picocli.CommandLine;
 
-import javax.enterprise.inject.se.SeContainer;
-import javax.enterprise.inject.se.SeContainerInitializer;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 @CommandLine.Command(description = "Load catalogue dtaa to Enterprise Architect database", name="ealoader",
         mixinStandardHelpOptions = true, version = "0.9")
@@ -23,12 +26,16 @@ class EALoaderInitializer implements Runnable {
             description = "Provys database connect string (localhost:1521:PVYS)", defaultValue = "localhost:60002:PVYS")
     private String provysAddress;
 
-    @CommandLine.Option(names = {"-e", "--eadb"}, description = "Enterprise architect database connect string",
-            defaultValue = "localhost:60096:PVYS")
-    private String eaAddress;
+    @CommandLine.Option(names = {"--provysuser"}, description = "Provys DB user", defaultValue = "ealoader")
+    private String provysUser;
 
-    @CommandLine.Option(names = {"-k", "--kerpwd"}, required = true, description = "KER user password")
-    private String kerPwd;
+    @CommandLine.Option(names = {"--provyspwd"}, description = "Provys DB user password", defaultValue = "heslo")
+    private String provysPwd;
+
+    @CommandLine.Option(names = {"-e", "--eaproject"}, description = "Enterprise architect project",
+            defaultValue = "provys_ea --- DBType=3;Connect=Provider=OraOLEDB.Oracle.1;Password=ker;" +
+                    "Persist Security Info=True;User ID=ker;Data Source=enterprise_architect;LazyLoad=1;")
+    private String eaAddress;
 
     @CommandLine.Option(names = {"-l", "--logfile"}, description = "Log file")
     private File logFile;
@@ -64,18 +71,36 @@ class EALoaderInitializer implements Runnable {
                 ((logFile != null) ? "file " + logFile.getPath() : "console") + ", level " + logLevel);
     }
 
+    /**
+     * Open connection to PROVYS database, open Enterprise Architect instance and pass them both to loader
+     */
     @Override
     public void run() {
         configureLogger();
-        SeContainer container = SeContainerInitializer.newInstance()
-                .addProperty("org.jboss.weld.se.archive.isolation", false).initialize();
-        RunEALoad runner = container.select(RunEALoad.class).get();
-        runner.setProvysAddress(provysAddress).
-                setEAAddress(eaAddress).
-                setKerPwd(kerPwd).
-                run();
+        var loadExecutor = new EALoadExecutor();
+        try (Connection provysConnection = DriverManager.getConnection("jdbc:oracle:thin:@" + provysAddress, provysUser, provysPwd)) {
+            Repository eaRepository = null;
+            try {
+                // Create a repository object - This will create a new instance of EA
+                eaRepository = new Repository();
+                // Attempt to open the provided file
+                if (eaRepository.OpenFile(eaAddress)) {
+                    loadExecutor.run(provysConnection, eaRepository);
+                } else {
+                    // If the file couldn't be opened then notify the user
+                    throw new RuntimeException("EA was unable to open the file '" + eaAddress + '\'');
+                }
+            } finally {
+                if (eaRepository != null) {
+                    // Clean up
+                    eaRepository.CloseFile();
+                    eaRepository.Exit();
+                    eaRepository.destroy();
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException("Failed to connect to PROVYS database", e);
+        }
     }
-
-
 
 }
