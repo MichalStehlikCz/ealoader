@@ -60,7 +60,7 @@
                     <generator>
                         <database>
                             <name>org.jooq.meta.oracle.OracleDatabase</name>
-                            <includes>CAT_ENTITY_VW|CAT_ATTR_VW|CAT_DOMAIN_VW|CAT_REL_VW</includes>
+                            <includes>CAT_ENTITYGRP_VW|CAT_ENTITY_VW|CAT_ATTR_VW|CAT_DOMAIN_VW|CAT_REL_VW</includes>
                             <excludes></excludes>
                             <inputSchema>CAT</inputSchema>
                         </database>

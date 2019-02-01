@@ -7,6 +7,7 @@ package com.provys.ealoader.catalogue.db;
 import com.provys.ealoader.catalogue.db.tables.CatAttrVw;
 import com.provys.ealoader.catalogue.db.tables.CatDomainVw;
 import com.provys.ealoader.catalogue.db.tables.CatEntityVw;
+import com.provys.ealoader.catalogue.db.tables.CatEntitygrpVw;
 import com.provys.ealoader.catalogue.db.tables.CatRelVw;
 
 import javax.annotation.Generated;
@@ -36,6 +37,12 @@ Attribute (catalogue)
 Domain - attribute type (catalogue)
      */
     public static final CatDomainVw CAT_DOMAIN_VW = com.provys.ealoader.catalogue.db.tables.CatDomainVw.CAT_DOMAIN_VW;
+
+    /**
+     * Generated view for entity ENTITYGRP
+Entity group
+     */
+    public static final CatEntitygrpVw CAT_ENTITYGRP_VW = com.provys.ealoader.catalogue.db.tables.CatEntitygrpVw.CAT_ENTITYGRP_VW;
 
     /**
      * Generated view for entity ENTITY

@@ -7,6 +7,7 @@ package com.provys.ealoader.catalogue.db;
 import com.provys.ealoader.catalogue.db.tables.CatAttrVw;
 import com.provys.ealoader.catalogue.db.tables.CatDomainVw;
 import com.provys.ealoader.catalogue.db.tables.CatEntityVw;
+import com.provys.ealoader.catalogue.db.tables.CatEntitygrpVw;
 import com.provys.ealoader.catalogue.db.tables.CatRelVw;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ import org.jooq.impl.SchemaImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Cat extends SchemaImpl {
 
-    private static final long serialVersionUID = 236927250;
+    private static final long serialVersionUID = -1608490040;
 
     /**
      * The reference instance of <code>CAT</code>
@@ -51,6 +52,12 @@ Attribute (catalogue)
 Domain - attribute type (catalogue)
      */
     public final CatDomainVw CAT_DOMAIN_VW = com.provys.ealoader.catalogue.db.tables.CatDomainVw.CAT_DOMAIN_VW;
+
+    /**
+     * Generated view for entity ENTITYGRP
+Entity group
+     */
+    public final CatEntitygrpVw CAT_ENTITYGRP_VW = com.provys.ealoader.catalogue.db.tables.CatEntitygrpVw.CAT_ENTITYGRP_VW;
 
     /**
      * Generated view for entity ENTITY
@@ -91,6 +98,7 @@ Relations (catalogue)
         return Arrays.<Table<?>>asList(
             CatAttrVw.CAT_ATTR_VW,
             CatDomainVw.CAT_DOMAIN_VW,
+            CatEntitygrpVw.CAT_ENTITYGRP_VW,
             CatEntityVw.CAT_ENTITY_VW,
             CatRelVw.CAT_REL_VW);
     }

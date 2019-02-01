@@ -1,6 +1,6 @@
 package com.provys.ealoader;
 
-import com.provys.ealoader.executor.EALoadExecutor;
+import com.provys.ealoader.executor.EALoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -10,6 +10,9 @@ import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
+import org.jooq.DSLContext;
+import org.jooq.SQLDialect;
+import org.jooq.impl.DSL;
 import org.sparx.Repository;
 import picocli.CommandLine;
 
@@ -77,15 +80,16 @@ class EALoaderInitializer implements Runnable {
     @Override
     public void run() {
         configureLogger();
-        var loadExecutor = new EALoadExecutor();
-        try (Connection provysConnection = DriverManager.getConnection("jdbc:oracle:thin:@" + provysAddress, provysUser, provysPwd)) {
+        var loadExecutor = new EALoader();
+        try (Connection provysConnection = DriverManager.getConnection("jdbc:oracle:thin:@" + provysAddress, provysUser, provysPwd);
+             DSLContext dslContext = DSL.using(provysConnection, SQLDialect.ORACLE12C)) {
             Repository eaRepository = null;
             try {
                 // Create a repository object - This will create a new instance of EA
                 eaRepository = new Repository();
                 // Attempt to open the provided file
                 if (eaRepository.OpenFile(eaAddress)) {
-                    loadExecutor.run(provysConnection, eaRepository);
+                    loadExecutor.run(dslContext, eaRepository);
                 } else {
                     // If the file couldn't be opened then notify the user
                     throw new RuntimeException("EA was unable to open the file '" + eaAddress + '\'');
