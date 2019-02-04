@@ -10,16 +10,11 @@ import org.apache.logging.log4j.core.config.builder.api.AppenderComponentBuilder
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilder;
 import org.apache.logging.log4j.core.config.builder.api.ConfigurationBuilderFactory;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
-import org.jooq.DSLContext;
-import org.jooq.SQLDialect;
-import org.jooq.impl.DSL;
-import org.sparx.Repository;
 import picocli.CommandLine;
 
+import javax.enterprise.inject.se.SeContainer;
+import javax.enterprise.inject.se.SeContainerInitializer;
 import java.io.File;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 @CommandLine.Command(description = "Load catalogue dtaa to Enterprise Architect database", name="ealoader",
         mixinStandardHelpOptions = true, version = "0.9")
@@ -80,31 +75,14 @@ class EALoaderInitializer implements Runnable {
     @Override
     public void run() {
         configureLogger();
-        var loadExecutor = new EALoader();
-        try (Connection provysConnection = DriverManager.getConnection("jdbc:oracle:thin:@" + provysAddress, provysUser, provysPwd);
-             DSLContext dslContext = DSL.using(provysConnection, SQLDialect.ORACLE12C)) {
-            Repository eaRepository = null;
-            try {
-                // Create a repository object - This will create a new instance of EA
-                eaRepository = new Repository();
-                // Attempt to open the provided file
-                if (eaRepository.OpenFile(eaAddress)) {
-                    loadExecutor.run(dslContext, eaRepository);
-                } else {
-                    // If the file couldn't be opened then notify the user
-                    throw new RuntimeException("EA was unable to open the file '" + eaAddress + '\'');
-                }
-            } finally {
-                if (eaRepository != null) {
-                    // Clean up
-                    eaRepository.CloseFile();
-                    eaRepository.Exit();
-                    eaRepository.destroy();
-                }
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException("Failed to connect to PROVYS database", e);
-        }
+        SeContainer container = SeContainerInitializer.newInstance()
+                .addProperty("org.jboss.weld.se.archive.isolation", false).initialize();
+        RunEALoader runner = container.select(RunEALoader.class).get();
+        runner.setProvysAddress(provysAddress).
+                setProvysUser(provysUser).
+                setProvysPwd(provysPwd).
+                setEaAddress(eaAddress).
+                run();
     }
 
 }
