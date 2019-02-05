@@ -1,5 +1,7 @@
 package com.provys.ealoader.catalogue;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.jooq.DSLContext;
 
 import javax.annotation.Nonnull;
@@ -10,14 +12,24 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Supplier;
 
 @ApplicationScoped
-class EntityGrpRepositoryImpl implements EntityGrpRepository {
+class EntityGrpManagerImpl implements EntityGrpManager {
+
+    @Nonnull
+    private static final Logger LOG = LogManager.getLogger(EntityGrpManagerImpl.class.getName());
 
     private final Map<BigInteger, EntityGrpImpl> entityGrpById = new ConcurrentHashMap<>(10);
+    private final Map<String, EntityGrpImpl> entityGrpByNameNm = new ConcurrentHashMap<>(10);
 
     @Nonnull
     @Override
     public Optional<EntityGrpImpl> getById(BigInteger id) {
         return Optional.ofNullable(entityGrpById.get(Objects.requireNonNull(id)));
+    }
+
+    @Nonnull
+    @Override
+    public Optional<EntityGrp> getByNameNm(String nameNm) {
+        return Optional.ofNullable(entityGrpByNameNm.get(Objects.requireNonNull(nameNm)));
     }
 
     @Nonnull
@@ -36,6 +48,12 @@ class EntityGrpRepositoryImpl implements EntityGrpRepository {
             }
             result = entityGrpById.putIfAbsent(id, newEntityGrp);
             if (result == null) {
+                var conflict = entityGrpByNameNm.put(newEntityGrp.getNameNm(), newEntityGrp);
+                if (conflict != null) {
+                    LOG.warn("Conflict in entity group internal name {}, entity groups new {} and old {}",
+                            newEntityGrp.getNameNm(), newEntityGrp, conflict);
+                    entityGrpById.remove(conflict.getId());
+                }
                 result = newEntityGrp;
             }
         }

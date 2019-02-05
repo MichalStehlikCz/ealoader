@@ -14,11 +14,11 @@ import static com.provys.ealoader.catalogue.db.Tables.CAT_ENTITYGRP_VW;
 class EntityGrpLoader {
 
     @Nonnull
-    private final EntityGrpRepositoryImpl repository;
+    private final EntityGrpManagerImpl repository;
     @Nullable
     private Map<BigInteger, CatEntitygrpVwRecord> entityGrpRecordById;
 
-    EntityGrpLoader(EntityGrpRepositoryImpl repository) {
+    EntityGrpLoader(EntityGrpManagerImpl repository) {
         this.repository = Objects.requireNonNull(repository);
     }
 

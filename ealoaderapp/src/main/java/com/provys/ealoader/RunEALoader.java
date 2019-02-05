@@ -23,7 +23,7 @@ import java.util.Objects;
 public class RunEALoader implements Runnable {
 
     @Nonnull
-    private final static Logger LOG = LogManager.getLogger(RunEALoader.class.getName());
+    private static final Logger LOG = LogManager.getLogger(RunEALoader.class.getName());
     @Nonnull
     private final EALoader eaLoader;
     @Nullable

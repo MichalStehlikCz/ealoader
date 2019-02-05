@@ -129,7 +129,7 @@ class EntityGrpImpl implements EntityGrp {
         List<Integer> myFullOrd = getFullOrd();
         List<Integer> otherFullOrd = other.getFullOrd();
         for (int i = 0; i < myFullOrd.size(); i++) {
-            if (i > otherFullOrd.size()) {
+            if (i >= otherFullOrd.size()) {
                 // same start but other is shorter -> other is before this (parent before child)
                 return 1;
             }
