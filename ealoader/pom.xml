@@ -34,6 +34,14 @@
             <groupId>com.google.code.findbugs</groupId>
             <artifactId>jsr305</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.provys</groupId>
+            <artifactId>common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.provys</groupId>
+            <artifactId>provysdb</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

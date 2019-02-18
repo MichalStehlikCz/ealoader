@@ -11,23 +11,44 @@ import java.util.SortedSet;
  */
 public interface EntityGrp extends Comparable<EntityGrp> {
 
+    /**
+     * @return Id (attribute ENTITYGRP_ID)
+     */
     @Nonnull
     BigInteger getId();
 
+    /**
+     * @return parent entity group (entity group with Id PARENT_ID)
+     */
     @Nonnull
     Optional<EntityGrp> getParent();
 
+    /**
+     * @return internal name (attribute NAME_NM)
+     */
     @Nonnull
     String getNameNm();
 
+    /**
+     * @return name (attribute NAME)
+     */
     @Nonnull
     String getName();
 
+    /**
+     * @return note (attribute NOTE)
+     */
     @Nonnull
     Optional<String> getNote();
 
+    /**
+     * @return order (attribute ORD)
+     */
     int getOrd();
 
+    /**
+     * @return child entity groups, sorted by Ord
+     */
     @Nonnull
     SortedSet<EntityGrp> getChildren();
 

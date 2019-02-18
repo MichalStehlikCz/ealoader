@@ -99,8 +99,7 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
     public Package getPackage(BigInteger entityGrpId) {
         Package eaPackage = packageById.get(Objects.requireNonNull(entityGrpId));
         if (eaPackage == null) {
-            eaPackage = registerPackage(entityGrpManager.getById(entityGrpId).
-                    orElseThrow(() -> new IllegalArgumentException("Entity group not found " + entityGrpId)));
+            eaPackage = registerPackage(entityGrpManager.getById(entityGrpId));
         }
         return eaPackage;
     }
@@ -122,9 +121,12 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
                 LOG.warn("Package {} with empty alias in entity group {}", childPackage.GetName(),
                         parent.getNameNm());
             } else {
-                if (entityGrpManager.getByNameNm(childPackage.GetAlias()).isEmpty()) {
-                    LOG.warn("Package {} ({}) not mapped to entity group in entity group {}",
-                            childPackage.GetName(), childPackage.GetAlias(), parent.getNameNm());
+                EntityGrp entityGrp = entityGrpManager.getByNameNmIfExists(childPackage.GetAlias()).orElse(null);
+                if (entityGrp == null) {
+                    LOG.warn("Package {} does not correspond to any entity group", childPackage.GetAlias());
+                } else if (entityGrp.getParent().orElse(null) != parent) {
+                    LOG.warn("Entity group {} is not child of {}, package is", childPackage.GetAlias(),
+                            parent.getNameNm());
                 }
             }
         }

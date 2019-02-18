@@ -1,6 +1,6 @@
 package com.provys.ealoader.earepository;
 
-import com.provys.ealoader.catalogue.EntityGrpManager;
+import com.provys.ealoader.catalogue.CatRepository;
 import org.sparx.Repository;
 
 import javax.annotation.Nonnull;
@@ -16,9 +16,10 @@ public class EaRepositoryImpl implements EaRepository {
     @Nonnull
     private final EaEntityGrpManagerImpl eaEntityGrpManager;
 
+    @SuppressWarnings("CdiUnproxyableBeanTypesInspection")
     @Inject
-    EaRepositoryImpl(EntityGrpManager entityGrpManager) {
-        eaEntityGrpManager = new EaEntityGrpManagerImpl(this, entityGrpManager);
+    EaRepositoryImpl(CatRepository catRepository) {
+        eaEntityGrpManager = new EaEntityGrpManagerImpl(this, catRepository.getEntityGrpManager());
     }
 
     @Nonnull

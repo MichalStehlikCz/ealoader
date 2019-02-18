@@ -1,11 +1,13 @@
-package com.provys.ealoader.catalogue;
+package com.provys.ealoader.catalogue.impl;
+
+import com.provys.ealoader.catalogue.EntityGrp;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.math.BigInteger;
 import java.util.*;
 
-class EntityGrpImpl implements EntityGrp {
+public class EntityGrpImpl implements EntityGrp {
 
     @Nonnull
     private BigInteger id;
@@ -21,7 +23,7 @@ class EntityGrpImpl implements EntityGrp {
     @Nonnull
     private final SortedSet<EntityGrp> children = new TreeSet<>();
 
-    EntityGrpImpl(BigInteger id, @Nullable EntityGrpImpl parent, String nameNm, String name, @Nullable String note,
+    public EntityGrpImpl(BigInteger id, @Nullable EntityGrp parent, String nameNm, String name, @Nullable String note,
                   int ord) {
         this.id = Objects.requireNonNull(id);
         this.parent = parent;
@@ -30,7 +32,7 @@ class EntityGrpImpl implements EntityGrp {
         this.note = note;
         this.ord = ord;
         if (this.parent != null) {
-            parent.registerChild(this);
+            ((EntityGrpImpl) parent).registerChild(this);
         }
     }
 
@@ -76,6 +78,10 @@ class EntityGrpImpl implements EntityGrp {
     }
 
     private void registerChild(EntityGrp child) {
+        if (child.getParent().orElseThrow(
+                () -> new RuntimeException("Cannot register entity group as child if its parent is null")) != this) {
+            throw new RuntimeException("Cannot register entity group as child if it does not have this as parent");
+        }
         children.add(child);
     }
 

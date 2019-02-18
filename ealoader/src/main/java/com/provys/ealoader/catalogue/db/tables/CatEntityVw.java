@@ -38,7 +38,7 @@ import org.jooq.impl.TableImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CatEntityVw extends TableImpl<CatEntityVwRecord> {
 
-    private static final long serialVersionUID = -531070002;
+    private static final long serialVersionUID = -472523801;
 
     /**
      * The reference instance of <code>CAT.CAT_ENTITY_VW</code>
@@ -157,6 +157,11 @@ M - manually processed - import procedure doesn't exist, still these items are t
      * The column <code>CAT.CAT_ENTITY_VW.BASEPATH</code>. Base path under which configuration of objects of this type should be stored in CVS. Only usable if object's configuration is stored in CVS
      */
     public final TableField<CatEntityVwRecord, String> BASEPATH = createField("BASEPATH", org.jooq.impl.SQLDataType.VARCHAR(200), this, "Base path under which configuration of objects of this type should be stored in CVS. Only usable if object's configuration is stored in CVS");
+
+    /**
+     * The column <code>CAT.CAT_ENTITY_VW.INCOMPLETEKEY</code>. Entity has not completed natural key. The pseudo natural key will be generated.
+     */
+    public final TableField<CatEntityVwRecord, String> INCOMPLETEKEY = createField("INCOMPLETEKEY", org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "Entity has not completed natural key. The pseudo natural key will be generated.");
 
     /**
      * The column <code>CAT.CAT_ENTITY_VW.MASTER_ID</code>. Relation to master entity. Meaning of master-detail relationship is described in more detail in MASTERTYPE attribute.

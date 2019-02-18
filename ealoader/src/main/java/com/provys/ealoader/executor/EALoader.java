@@ -1,8 +1,6 @@
 package com.provys.ealoader.executor;
 
-import com.provys.ealoader.catalogue.EntityGrpManager;
 import com.provys.ealoader.earepository.EaRepository;
-import org.jooq.DSLContext;
 import org.sparx.Repository;
 
 import javax.annotation.Nonnull;
@@ -14,19 +12,16 @@ import java.util.Objects;
 public class EALoader {
 
     @Nonnull
-    private final EntityGrpManager entityGrpManager;
-    @Nonnull
     private final EaRepository eaRepository;
 
+    @SuppressWarnings("CdiUnproxyableBeanTypesInspection")
     @Inject
-    EALoader(EntityGrpManager entityGrpManager, EaRepository eaRepository) {
-        this.entityGrpManager = Objects.requireNonNull(entityGrpManager);
+    EALoader(EaRepository eaRepository) {
         this.eaRepository = Objects.requireNonNull(eaRepository);
     }
 
-    public void run(DSLContext dslContext, Repository eaRepository) {
+    public void run(Repository eaRepository) {
         this.eaRepository.setEaRepository(eaRepository);
-        entityGrpManager.load(dslContext);
         this.eaRepository.getEaEntityGrpManager().syncAllPackages();
     }
 }

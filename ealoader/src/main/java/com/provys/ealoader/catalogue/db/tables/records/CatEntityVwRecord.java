@@ -29,7 +29,7 @@ import org.jooq.impl.TableRecordImpl;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class CatEntityVwRecord extends TableRecordImpl<CatEntityVwRecord> {
 
-    private static final long serialVersionUID = 622363309;
+    private static final long serialVersionUID = -913589953;
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.ENTITY_ID</code>. UID
@@ -322,31 +322,45 @@ M - manually processed - import procedure doesn't exist, still these items are t
     }
 
     /**
+     * Setter for <code>CAT.CAT_ENTITY_VW.INCOMPLETEKEY</code>. Entity has not completed natural key. The pseudo natural key will be generated.
+     */
+    public void setIncompletekey(String value) {
+        set(20, value);
+    }
+
+    /**
+     * Getter for <code>CAT.CAT_ENTITY_VW.INCOMPLETEKEY</code>. Entity has not completed natural key. The pseudo natural key will be generated.
+     */
+    public String getIncompletekey() {
+        return (String) get(20);
+    }
+
+    /**
      * Setter for <code>CAT.CAT_ENTITY_VW.MASTER_ID</code>. Relation to master entity. Meaning of master-detail relationship is described in more detail in MASTERTYPE attribute.
      */
     public void setMasterId(BigInteger value) {
-        set(20, value);
+        set(21, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.MASTER_ID</code>. Relation to master entity. Meaning of master-detail relationship is described in more detail in MASTERTYPE attribute.
      */
     public BigInteger getMasterId() {
-        return (BigInteger) get(20);
+        return (BigInteger) get(21);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.MASTERTYPE</code>. Type of master-detail relationship
      */
     public void setMastertype(String value) {
-        set(21, value);
+        set(22, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.MASTERTYPE</code>. Type of master-detail relationship
      */
     public String getMastertype() {
-        return (String) get(21);
+        return (String) get(22);
     }
 
     /**
@@ -362,7 +376,7 @@ Lock, change and delete operations on object of this type locks object (and its 
 O - locking strategy is fully handled by entity specific code, changes of locking modes are available to PG packages. This is for example used in scheduling. System does not generate any code in this case, but still generates lock id for objects of this type
      */
     public void setUserlocktype(String value) {
-        set(22, value);
+        set(23, value);
     }
 
     /**
@@ -378,973 +392,973 @@ Lock, change and delete operations on object of this type locks object (and its 
 O - locking strategy is fully handled by entity specific code, changes of locking modes are available to PG packages. This is for example used in scheduling. System does not generate any code in this case, but still generates lock id for objects of this type
      */
     public String getUserlocktype() {
-        return (String) get(22);
+        return (String) get(23);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.ENTITYGRP_ID</code>. Group of entities this entity belongs to
      */
     public void setEntitygrpId(BigInteger value) {
-        set(23, value);
+        set(24, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.ENTITYGRP_ID</code>. Group of entities this entity belongs to
      */
     public BigInteger getEntitygrpId() {
-        return (BigInteger) get(23);
+        return (BigInteger) get(24);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.ANCESTOR_ID</code>. Ancestor of this entity; it is OBJECT for most entities, but might be something else if entity is specialization of other one.
      */
     public void setAncestorId(BigInteger value) {
-        set(24, value);
+        set(25, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.ANCESTOR_ID</code>. Ancestor of this entity; it is OBJECT for most entities, but might be something else if entity is specialization of other one.
      */
     public BigInteger getAncestorId() {
-        return (BigInteger) get(24);
+        return (BigInteger) get(25);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.NOTE</code>. Short description of entity
      */
     public void setNote(String value) {
-        set(25, value);
+        set(26, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.NOTE</code>. Short description of entity
      */
     public String getNote() {
-        return (String) get(25);
+        return (String) get(26);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.CUSTOMNOTE</code>. Description specific for given installation (installation specific)
      */
     public void setCustomnote(String value) {
-        set(26, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.CUSTOMNOTE</code>. Description specific for given installation (installation specific)
      */
     public String getCustomnote() {
-        return (String) get(26);
+        return (String) get(27);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.STRUCTUREDOC</code>. Documentation describing structure of the entity and its relations to other entities
      */
     public void setStructuredoc(String value) {
-        set(27, value);
+        set(28, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.STRUCTUREDOC</code>. Documentation describing structure of the entity and its relations to other entities
      */
     public String getStructuredoc() {
-        return (String) get(27);
+        return (String) get(28);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.USAGEDOC</code>. Documentation describing standard usage of the entity
      */
     public void setUsagedoc(String value) {
-        set(28, value);
+        set(29, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.USAGEDOC</code>. Documentation describing standard usage of the entity
      */
     public String getUsagedoc() {
-        return (String) get(28);
+        return (String) get(29);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.BEHAVIOURDOC</code>. Documentation describing dynamic behaviour of the entity
      */
     public void setBehaviourdoc(String value) {
-        set(29, value);
+        set(30, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.BEHAVIOURDOC</code>. Documentation describing dynamic behaviour of the entity
      */
     public String getBehaviourdoc() {
-        return (String) get(29);
+        return (String) get(30);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.IMPLDOC</code>. Documentation describing implementation details of the entity
      */
     public void setImpldoc(String value) {
-        set(30, value);
+        set(31, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.IMPLDOC</code>. Documentation describing implementation details of the entity
      */
     public String getImpldoc() {
-        return (String) get(30);
+        return (String) get(31);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.ISUSED</code>. Entity is used on given installation.
      */
     public void setIsused(String value) {
-        set(31, value);
+        set(32, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.ISUSED</code>. Entity is used on given installation.
      */
     public String getIsused() {
-        return (String) get(31);
+        return (String) get(32);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.GETRIGHTCUSTOM</code>. Access rights for entity on installation are installation specific. They will not be overwritten during upgrade.
      */
     public void setGetrightcustom(String value) {
-        set(32, value);
+        set(33, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.GETRIGHTCUSTOM</code>. Access rights for entity on installation are installation specific. They will not be overwritten during upgrade.
      */
     public String getGetrightcustom() {
-        return (String) get(32);
+        return (String) get(33);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.GETRIGHTRESTR_ID</code>. Right restriction, defining objects that are accessible to all users (public).
      */
     public void setGetrightrestrId(BigInteger value) {
-        set(33, value);
+        set(34, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.GETRIGHTRESTR_ID</code>. Right restriction, defining objects that are accessible to all users (public).
      */
     public BigInteger getGetrightrestrId() {
-        return (BigInteger) get(33);
+        return (BigInteger) get(34);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.GETOPTYPE_ID</code>. Operation type to be tested when accessing objects. Checks are compiled to entity view. Note that it might is possible to access entity's data through DW views on other entities where this entity is joined. It is also possible to bypass rights tests using EP functions.
      */
     public void setGetoptypeId(BigInteger value) {
-        set(34, value);
+        set(35, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.GETOPTYPE_ID</code>. Operation type to be tested when accessing objects. Checks are compiled to entity view. Note that it might is possible to access entity's data through DW views on other entities where this entity is joined. It is also possible to bypass rights tests using EP functions.
      */
     public BigInteger getGetoptypeId() {
-        return (BigInteger) get(34);
+        return (BigInteger) get(35);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.KEEPDELETED</code>. This field can be used to retain record in object table given number of days after actually deleting object from system. History (of attribute values), remarks and liabilities are kept along with object. Financial data attached to object are cancelled immediately even if object is kept.
      */
     public void setKeepdeleted(Integer value) {
-        set(35, value);
+        set(36, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.KEEPDELETED</code>. This field can be used to retain record in object table given number of days after actually deleting object from system. History (of attribute values), remarks and liabilities are kept along with object. Financial data attached to object are cancelled immediately even if object is kept.
      */
     public Integer getKeepdeleted() {
-        return (Integer) get(35);
+        return (Integer) get(36);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.SHORTDESC</code>. Short (preferably single line) description of object; template from which description is generated using GetParams generated parameters
      */
     public void setShortdesc(String value) {
-        set(36, value);
+        set(37, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.SHORTDESC</code>. Short (preferably single line) description of object; template from which description is generated using GetParams generated parameters
      */
     public String getShortdesc() {
-        return (String) get(36);
+        return (String) get(37);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.LONGDESC</code>. Long (multi-line) description of object; template from which description is generated using GetParams generated parameters
      */
     public void setLongdesc(String value) {
-        set(37, value);
+        set(38, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.LONGDESC</code>. Long (multi-line) description of object; template from which description is generated using GetParams generated parameters
      */
     public String getLongdesc() {
-        return (String) get(37);
+        return (String) get(38);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR0</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr0(Long value) {
-        set(38, value);
+        set(39, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR0</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr0() {
-        return (Long) get(38);
+        return (Long) get(39);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR1</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr1(Long value) {
-        set(39, value);
+        set(40, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR1</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr1() {
-        return (Long) get(39);
+        return (Long) get(40);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR2</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr2(Long value) {
-        set(40, value);
+        set(41, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR2</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr2() {
-        return (Long) get(40);
+        return (Long) get(41);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR3</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr3(Long value) {
-        set(41, value);
+        set(42, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR3</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr3() {
-        return (Long) get(41);
+        return (Long) get(42);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR4</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr4(Long value) {
-        set(42, value);
+        set(43, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR4</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr4() {
-        return (Long) get(42);
+        return (Long) get(43);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR5</code>. Bitmap of Attributes, which have COPIED set.
      */
     public void setXCopiedattr5(Long value) {
-        set(43, value);
+        set(44, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_COPIEDATTR5</code>. Bitmap of Attributes, which have COPIED set.
      */
     public Long getXCopiedattr5() {
-        return (Long) get(43);
+        return (Long) get(44);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_HASLIABILITY</code>. Flag is set if at least one liability type can be used with entity.
      */
     public void setXHasliability(String value) {
-        set(44, value);
+        set(45, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_HASLIABILITY</code>. Flag is set if at least one liability type can be used with entity.
      */
     public String getXHasliability() {
-        return (String) get(44);
+        return (String) get(45);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR0</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 0
      */
     public void setXNotifyattr0(Long value) {
-        set(45, value);
+        set(46, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR0</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 0
      */
     public Long getXNotifyattr0() {
-        return (Long) get(45);
+        return (Long) get(46);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR1</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 1
      */
     public void setXNotifyattr1(Long value) {
-        set(46, value);
+        set(47, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR1</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 1
      */
     public Long getXNotifyattr1() {
-        return (Long) get(46);
+        return (Long) get(47);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR2</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 2
      */
     public void setXNotifyattr2(Long value) {
-        set(47, value);
+        set(48, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR2</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 2
      */
     public Long getXNotifyattr2() {
-        return (Long) get(47);
+        return (Long) get(48);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR3</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 3
      */
     public void setXNotifyattr3(Long value) {
-        set(48, value);
+        set(49, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR3</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 3
      */
     public Long getXNotifyattr3() {
-        return (Long) get(48);
+        return (Long) get(49);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR4</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 4
      */
     public void setXNotifyattr4(Long value) {
-        set(49, value);
+        set(50, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR4</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 4
      */
     public Long getXNotifyattr4() {
-        return (Long) get(49);
+        return (Long) get(50);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR5</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5
      */
     public void setXNotifyattr5(Long value) {
-        set(50, value);
+        set(51, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_NOTIFYATTR5</code>. Attr Set Bitmap of attributes for which AfterCreate and AfterChange should be called - part 5
      */
     public Long getXNotifyattr5() {
-        return (Long) get(50);
+        return (Long) get(51);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST0</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 0)
      */
     public void setXFlagdefinterest0(Long value) {
-        set(51, value);
+        set(52, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST0</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 0)
      */
     public Long getXFlagdefinterest0() {
-        return (Long) get(51);
+        return (Long) get(52);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST1</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 1)
      */
     public void setXFlagdefinterest1(Long value) {
-        set(52, value);
+        set(53, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST1</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 1)
      */
     public Long getXFlagdefinterest1() {
-        return (Long) get(52);
+        return (Long) get(53);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST2</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 2)
      */
     public void setXFlagdefinterest2(Long value) {
-        set(53, value);
+        set(54, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST2</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 2)
      */
     public Long getXFlagdefinterest2() {
-        return (Long) get(53);
+        return (Long) get(54);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST3</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 3)
      */
     public void setXFlagdefinterest3(Long value) {
-        set(54, value);
+        set(55, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST3</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 3)
      */
     public Long getXFlagdefinterest3() {
-        return (Long) get(54);
+        return (Long) get(55);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST4</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 4)
      */
     public void setXFlagdefinterest4(Long value) {
-        set(55, value);
+        set(56, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST4</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 4)
      */
     public Long getXFlagdefinterest4() {
-        return (Long) get(55);
+        return (Long) get(56);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST5</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)
      */
     public void setXFlagdefinterest5(Long value) {
-        set(56, value);
+        set(57, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_FLAGDEFINTEREST5</code>. Bitmap of Attributes, changes of which should raise at least one Flag Definition (part 5)
      */
     public Long getXFlagdefinterest5() {
-        return (Long) get(56);
+        return (Long) get(57);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR0</code>. Bitmap of Attributes, for which AfterDelete should be called
      */
     public void setXDelnotifyattr0(Long value) {
-        set(57, value);
+        set(58, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR0</code>. Bitmap of Attributes, for which AfterDelete should be called
      */
     public Long getXDelnotifyattr0() {
-        return (Long) get(57);
+        return (Long) get(58);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR1</code>.
      */
     public void setXDelnotifyattr1(Long value) {
-        set(58, value);
+        set(59, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR1</code>.
      */
     public Long getXDelnotifyattr1() {
-        return (Long) get(58);
+        return (Long) get(59);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR2</code>.
      */
     public void setXDelnotifyattr2(Long value) {
-        set(59, value);
+        set(60, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR2</code>.
      */
     public Long getXDelnotifyattr2() {
-        return (Long) get(59);
+        return (Long) get(60);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR3</code>.
      */
     public void setXDelnotifyattr3(Long value) {
-        set(60, value);
+        set(61, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR3</code>.
      */
     public Long getXDelnotifyattr3() {
-        return (Long) get(60);
+        return (Long) get(61);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR4</code>.
      */
     public void setXDelnotifyattr4(Long value) {
-        set(61, value);
+        set(62, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR4</code>.
      */
     public Long getXDelnotifyattr4() {
-        return (Long) get(61);
+        return (Long) get(62);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR5</code>.
      */
     public void setXDelnotifyattr5(Long value) {
-        set(62, value);
+        set(63, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_DELNOTIFYATTR5</code>.
      */
     public Long getXDelnotifyattr5() {
-        return (Long) get(62);
+        return (Long) get(63);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.USECONFOBJ</code>. Flag indicates, if version control is used for this object as master object. Has to be NULL if CONFOBJ is not set to O, is mandatory and defaults to N when CONFOBJ is changed to O
      */
     public void setUseconfobj(String value) {
-        set(63, value);
+        set(64, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.USECONFOBJ</code>. Flag indicates, if version control is used for this object as master object. Has to be NULL if CONFOBJ is not set to O, is mandatory and defaults to N when CONFOBJ is changed to O
      */
     public String getUseconfobj() {
-        return (String) get(63);
+        return (String) get(64);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_USECONFOBJ</code>. Calculated flag indicating if objects of this type are stored in version control; it is same as USECONFOBJ for master objects, is inherits value from entity, attached through relation with Cascade XML export set
      */
     public void setXUseconfobj(String value) {
-        set(64, value);
+        set(65, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_USECONFOBJ</code>. Calculated flag indicating if objects of this type are stored in version control; it is same as USECONFOBJ for master objects, is inherits value from entity, attached through relation with Cascade XML export set
      */
     public String getXUseconfobj() {
-        return (String) get(64);
+        return (String) get(65);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.CONFOBJALL</code>. Indicates if all objects of this type are "masters" (from configuration point of view) or some are considered service objects and are exported with other objects. Can only be set for objects with CONFOBJ set to O, default is Y in this case. If set to N, it is expected that method mf_IsConfObj is implemented in PG package that indicates which object is master and which is included
      */
     public void setConfobjall(String value) {
-        set(65, value);
+        set(66, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.CONFOBJALL</code>. Indicates if all objects of this type are "masters" (from configuration point of view) or some are considered service objects and are exported with other objects. Can only be set for objects with CONFOBJ set to O, default is Y in this case. If set to N, it is expected that method mf_IsConfObj is implemented in PG package that indicates which object is master and which is included
      */
     public String getConfobjall() {
-        return (String) get(65);
+        return (String) get(66);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.X_HASDELROWFLAGDEF</code>. Existence of flagdef for given entity with DELETEROW='Y', which is handled during object delete operation
      */
     public void setXHasdelrowflagdef(String value) {
-        set(66, value);
+        set(67, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.X_HASDELROWFLAGDEF</code>. Existence of flagdef for given entity with DELETEROW='Y', which is handled during object delete operation
      */
     public String getXHasdelrowflagdef() {
-        return (String) get(66);
+        return (String) get(67);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.NLSSHORT</code>. Translation of internal name of entity
      */
     public void setNlsshort(String value) {
-        set(67, value);
+        set(68, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.NLSSHORT</code>. Translation of internal name of entity
      */
     public String getNlsshort() {
-        return (String) get(67);
+        return (String) get(68);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.NLSNAME</code>. Translated name of entity
      */
     public void setNlsname(String value) {
-        set(68, value);
+        set(69, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.NLSNAME</code>. Translated name of entity
      */
     public String getNlsname() {
-        return (String) get(68);
+        return (String) get(69);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NM</code>.
      */
     public void setCEntitygrpNm(String value) {
-        set(69, value);
+        set(70, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NM</code>.
      */
     public String getCEntitygrpNm() {
-        return (String) get(69);
+        return (String) get(70);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NAME</code>.
      */
     public void setCEntitygrpName(String value) {
-        set(70, value);
+        set(71, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NAME</code>.
      */
     public String getCEntitygrpName() {
-        return (String) get(70);
+        return (String) get(71);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NLSNAME</code>.
      */
     public void setCEntitygrpNlsname(String value) {
-        set(71, value);
+        set(72, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_NLSNAME</code>.
      */
     public String getCEntitygrpNlsname() {
-        return (String) get(71);
+        return (String) get(72);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNM</code>.
      */
     public void setCEntitygrpFullnm(String value) {
-        set(72, value);
+        set(73, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNM</code>.
      */
     public String getCEntitygrpFullnm() {
-        return (String) get(72);
+        return (String) get(73);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNAME</code>.
      */
     public void setCEntitygrpFullname(String value) {
-        set(73, value);
+        set(74, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNAME</code>.
      */
     public String getCEntitygrpFullname() {
-        return (String) get(73);
+        return (String) get(74);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNLSNAME</code>.
      */
     public void setCEntitygrpFullnlsname(String value) {
-        set(74, value);
+        set(75, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ENTITYGRP_FULLNLSNAME</code>.
      */
     public String getCEntitygrpFullnlsname() {
-        return (String) get(74);
+        return (String) get(75);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NM</code>.
      */
     public void setCAncestorNm(String value) {
-        set(75, value);
+        set(76, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NM</code>.
      */
     public String getCAncestorNm() {
-        return (String) get(75);
+        return (String) get(76);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NAME</code>.
      */
     public void setCAncestorName(String value) {
-        set(76, value);
+        set(77, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NAME</code>.
      */
     public String getCAncestorName() {
-        return (String) get(76);
+        return (String) get(77);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NLSSHORT</code>.
      */
     public void setCAncestorNlsshort(String value) {
-        set(77, value);
+        set(78, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NLSSHORT</code>.
      */
     public String getCAncestorNlsshort() {
-        return (String) get(77);
+        return (String) get(78);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NLSNAME</code>.
      */
     public void setCAncestorNlsname(String value) {
-        set(78, value);
+        set(79, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_ANCESTOR_NLSNAME</code>.
      */
     public String getCAncestorNlsname() {
-        return (String) get(78);
+        return (String) get(79);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_GETOPTYPEAUTO</code>.
      */
     public void setCGetoptypeauto(String value) {
-        set(79, value);
+        set(80, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_GETOPTYPEAUTO</code>.
      */
     public String getCGetoptypeauto() {
-        return (String) get(79);
+        return (String) get(80);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_OWNERFORMULA_ID</code>. Attribute used to evaluate owner of object. Used to find ledger when more ledgers are used on installation.
      */
     public void setCOwnerformulaId(BigDecimal value) {
-        set(80, value);
+        set(81, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_OWNERFORMULA_ID</code>. Attribute used to evaluate owner of object. Used to find ledger when more ledgers are used on installation.
      */
     public BigDecimal getCOwnerformulaId() {
-        return (BigDecimal) get(80);
+        return (BigDecimal) get(81);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_SHORTNAMEATTR_ID</code>. Attribute representing default shortname for given entity; used by default in lists if no extended format is specified for UID column
      */
     public void setCShortnameattrId(BigDecimal value) {
-        set(81, value);
+        set(82, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_SHORTNAMEATTR_ID</code>. Attribute representing default shortname for given entity; used by default in lists if no extended format is specified for UID column
      */
     public BigDecimal getCShortnameattrId() {
-        return (BigDecimal) get(81);
+        return (BigDecimal) get(82);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.NLSSHORTDESC</code>. Translation of long description
      */
     public void setNlsshortdesc(String value) {
-        set(82, value);
+        set(83, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.NLSSHORTDESC</code>. Translation of long description
      */
     public String getNlsshortdesc() {
-        return (String) get(82);
+        return (String) get(83);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.C_NAMEATTR_ID</code>. Attribute representing default name for given entity; used by default in validate edit if no extended format is specified
      */
     public void setCNameattrId(BigDecimal value) {
-        set(83, value);
+        set(84, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.C_NAMEATTR_ID</code>. Attribute representing default name for given entity; used by default in validate edit if no extended format is specified
      */
     public BigDecimal getCNameattrId() {
-        return (BigDecimal) get(83);
+        return (BigDecimal) get(84);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.NLSLONGDESC</code>. Translation of long description
      */
     public void setNlslongdesc(String value) {
-        set(84, value);
+        set(85, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.NLSLONGDESC</code>. Translation of long description
      */
     public String getNlslongdesc() {
-        return (String) get(84);
+        return (String) get(85);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST</code>. Who is responsible for the documentation
      */
     public void setDocumentalist(String value) {
-        set(85, value);
+        set(86, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST</code>. Who is responsible for the documentation
      */
     public String getDocumentalist() {
-        return (String) get(85);
+        return (String) get(86);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_ID</code>. Who is responsible for the documentation (person)
      */
     public void setDocumentalistId(BigDecimal value) {
-        set(86, value);
+        set(87, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_ID</code>. Who is responsible for the documentation (person)
      */
     public BigDecimal getDocumentalistId() {
-        return (BigDecimal) get(86);
+        return (BigDecimal) get(87);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_DATE</code>. Who is responsible for the documentation (date)
      */
     public void setDocumentalistDate(Date value) {
-        set(87, value);
+        set(88, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_DATE</code>. Who is responsible for the documentation (date)
      */
     public Date getDocumentalistDate() {
-        return (Date) get(87);
+        return (Date) get(88);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_CO</code>. Who is responsible for the documentation
      */
     public void setDocumentalistCo(String value) {
-        set(88, value);
+        set(89, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.DOCUMENTALIST_CO</code>. Who is responsible for the documentation
      */
     public String getDocumentalistCo() {
-        return (String) get(88);
+        return (String) get(89);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.F_NETTESTBR</code>.
      */
     public void setFNettestbr(String value) {
-        set(89, value);
+        set(90, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.F_NETTESTBR</code>.
      */
     public String getFNettestbr() {
-        return (String) get(89);
+        return (String) get(90);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.F_NETTESTNOTE</code>.
      */
     public void setFNettestnote(String value) {
-        set(90, value);
+        set(91, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.F_NETTESTNOTE</code>.
      */
     public String getFNettestnote() {
-        return (String) get(90);
+        return (String) get(91);
     }
 
     /**
      * Setter for <code>CAT.CAT_ENTITY_VW.F_NETTEST_RF</code>.
      */
     public void setFNettestRf(BigDecimal value) {
-        set(91, value);
+        set(92, value);
     }
 
     /**
      * Getter for <code>CAT.CAT_ENTITY_VW.F_NETTEST_RF</code>.
      */
     public BigDecimal getFNettestRf() {
-        return (BigDecimal) get(91);
+        return (BigDecimal) get(92);
     }
 
     // -------------------------------------------------------------------------
@@ -1361,7 +1375,7 @@ O - locking strategy is fully handled by entity specific code, changes of lockin
     /**
      * Create a detached, initialised CatEntityVwRecord
      */
-    public CatEntityVwRecord(BigInteger entityId, String nameNm, String name, String xUpname, String objectclass, String iscustom, String tableNm, String viewNm, String keyNm, String texttableNm, String textviewNm, String textkeyNm, String textall, String pgpackageNm, String eppackageNm, String cppackageNm, String fppackageNm, String importtype, String confobj, String basepath, BigInteger masterId, String mastertype, String userlocktype, BigInteger entitygrpId, BigInteger ancestorId, String note, String customnote, String structuredoc, String usagedoc, String behaviourdoc, String impldoc, String isused, String getrightcustom, BigInteger getrightrestrId, BigInteger getoptypeId, Integer keepdeleted, String shortdesc, String longdesc, Long xCopiedattr0, Long xCopiedattr1, Long xCopiedattr2, Long xCopiedattr3, Long xCopiedattr4, Long xCopiedattr5, String xHasliability, Long xNotifyattr0, Long xNotifyattr1, Long xNotifyattr2, Long xNotifyattr3, Long xNotifyattr4, Long xNotifyattr5, Long xFlagdefinterest0, Long xFlagdefinterest1, Long xFlagdefinterest2, Long xFlagdefinterest3, Long xFlagdefinterest4, Long xFlagdefinterest5, Long xDelnotifyattr0, Long xDelnotifyattr1, Long xDelnotifyattr2, Long xDelnotifyattr3, Long xDelnotifyattr4, Long xDelnotifyattr5, String useconfobj, String xUseconfobj, String confobjall, String xHasdelrowflagdef, String nlsshort, String nlsname, String cEntitygrpNm, String cEntitygrpName, String cEntitygrpNlsname, String cEntitygrpFullnm, String cEntitygrpFullname, String cEntitygrpFullnlsname, String cAncestorNm, String cAncestorName, String cAncestorNlsshort, String cAncestorNlsname, String cGetoptypeauto, BigDecimal cOwnerformulaId, BigDecimal cShortnameattrId, String nlsshortdesc, BigDecimal cNameattrId, String nlslongdesc, String documentalist, BigDecimal documentalistId, Date documentalistDate, String documentalistCo, String fNettestbr, String fNettestnote, BigDecimal fNettestRf) {
+    public CatEntityVwRecord(BigInteger entityId, String nameNm, String name, String xUpname, String objectclass, String iscustom, String tableNm, String viewNm, String keyNm, String texttableNm, String textviewNm, String textkeyNm, String textall, String pgpackageNm, String eppackageNm, String cppackageNm, String fppackageNm, String importtype, String confobj, String basepath, String incompletekey, BigInteger masterId, String mastertype, String userlocktype, BigInteger entitygrpId, BigInteger ancestorId, String note, String customnote, String structuredoc, String usagedoc, String behaviourdoc, String impldoc, String isused, String getrightcustom, BigInteger getrightrestrId, BigInteger getoptypeId, Integer keepdeleted, String shortdesc, String longdesc, Long xCopiedattr0, Long xCopiedattr1, Long xCopiedattr2, Long xCopiedattr3, Long xCopiedattr4, Long xCopiedattr5, String xHasliability, Long xNotifyattr0, Long xNotifyattr1, Long xNotifyattr2, Long xNotifyattr3, Long xNotifyattr4, Long xNotifyattr5, Long xFlagdefinterest0, Long xFlagdefinterest1, Long xFlagdefinterest2, Long xFlagdefinterest3, Long xFlagdefinterest4, Long xFlagdefinterest5, Long xDelnotifyattr0, Long xDelnotifyattr1, Long xDelnotifyattr2, Long xDelnotifyattr3, Long xDelnotifyattr4, Long xDelnotifyattr5, String useconfobj, String xUseconfobj, String confobjall, String xHasdelrowflagdef, String nlsshort, String nlsname, String cEntitygrpNm, String cEntitygrpName, String cEntitygrpNlsname, String cEntitygrpFullnm, String cEntitygrpFullname, String cEntitygrpFullnlsname, String cAncestorNm, String cAncestorName, String cAncestorNlsshort, String cAncestorNlsname, String cGetoptypeauto, BigDecimal cOwnerformulaId, BigDecimal cShortnameattrId, String nlsshortdesc, BigDecimal cNameattrId, String nlslongdesc, String documentalist, BigDecimal documentalistId, Date documentalistDate, String documentalistCo, String fNettestbr, String fNettestnote, BigDecimal fNettestRf) {
         super(CatEntityVw.CAT_ENTITY_VW);
 
         set(0, entityId);
@@ -1384,77 +1398,78 @@ O - locking strategy is fully handled by entity specific code, changes of lockin
         set(17, importtype);
         set(18, confobj);
         set(19, basepath);
-        set(20, masterId);
-        set(21, mastertype);
-        set(22, userlocktype);
-        set(23, entitygrpId);
-        set(24, ancestorId);
-        set(25, note);
-        set(26, customnote);
-        set(27, structuredoc);
-        set(28, usagedoc);
-        set(29, behaviourdoc);
-        set(30, impldoc);
-        set(31, isused);
-        set(32, getrightcustom);
-        set(33, getrightrestrId);
-        set(34, getoptypeId);
-        set(35, keepdeleted);
-        set(36, shortdesc);
-        set(37, longdesc);
-        set(38, xCopiedattr0);
-        set(39, xCopiedattr1);
-        set(40, xCopiedattr2);
-        set(41, xCopiedattr3);
-        set(42, xCopiedattr4);
-        set(43, xCopiedattr5);
-        set(44, xHasliability);
-        set(45, xNotifyattr0);
-        set(46, xNotifyattr1);
-        set(47, xNotifyattr2);
-        set(48, xNotifyattr3);
-        set(49, xNotifyattr4);
-        set(50, xNotifyattr5);
-        set(51, xFlagdefinterest0);
-        set(52, xFlagdefinterest1);
-        set(53, xFlagdefinterest2);
-        set(54, xFlagdefinterest3);
-        set(55, xFlagdefinterest4);
-        set(56, xFlagdefinterest5);
-        set(57, xDelnotifyattr0);
-        set(58, xDelnotifyattr1);
-        set(59, xDelnotifyattr2);
-        set(60, xDelnotifyattr3);
-        set(61, xDelnotifyattr4);
-        set(62, xDelnotifyattr5);
-        set(63, useconfobj);
-        set(64, xUseconfobj);
-        set(65, confobjall);
-        set(66, xHasdelrowflagdef);
-        set(67, nlsshort);
-        set(68, nlsname);
-        set(69, cEntitygrpNm);
-        set(70, cEntitygrpName);
-        set(71, cEntitygrpNlsname);
-        set(72, cEntitygrpFullnm);
-        set(73, cEntitygrpFullname);
-        set(74, cEntitygrpFullnlsname);
-        set(75, cAncestorNm);
-        set(76, cAncestorName);
-        set(77, cAncestorNlsshort);
-        set(78, cAncestorNlsname);
-        set(79, cGetoptypeauto);
-        set(80, cOwnerformulaId);
-        set(81, cShortnameattrId);
-        set(82, nlsshortdesc);
-        set(83, cNameattrId);
-        set(84, nlslongdesc);
-        set(85, documentalist);
-        set(86, documentalistId);
-        set(87, documentalistDate);
-        set(88, documentalistCo);
-        set(89, fNettestbr);
-        set(90, fNettestnote);
-        set(91, fNettestRf);
+        set(20, incompletekey);
+        set(21, masterId);
+        set(22, mastertype);
+        set(23, userlocktype);
+        set(24, entitygrpId);
+        set(25, ancestorId);
+        set(26, note);
+        set(27, customnote);
+        set(28, structuredoc);
+        set(29, usagedoc);
+        set(30, behaviourdoc);
+        set(31, impldoc);
+        set(32, isused);
+        set(33, getrightcustom);
+        set(34, getrightrestrId);
+        set(35, getoptypeId);
+        set(36, keepdeleted);
+        set(37, shortdesc);
+        set(38, longdesc);
+        set(39, xCopiedattr0);
+        set(40, xCopiedattr1);
+        set(41, xCopiedattr2);
+        set(42, xCopiedattr3);
+        set(43, xCopiedattr4);
+        set(44, xCopiedattr5);
+        set(45, xHasliability);
+        set(46, xNotifyattr0);
+        set(47, xNotifyattr1);
+        set(48, xNotifyattr2);
+        set(49, xNotifyattr3);
+        set(50, xNotifyattr4);
+        set(51, xNotifyattr5);
+        set(52, xFlagdefinterest0);
+        set(53, xFlagdefinterest1);
+        set(54, xFlagdefinterest2);
+        set(55, xFlagdefinterest3);
+        set(56, xFlagdefinterest4);
+        set(57, xFlagdefinterest5);
+        set(58, xDelnotifyattr0);
+        set(59, xDelnotifyattr1);
+        set(60, xDelnotifyattr2);
+        set(61, xDelnotifyattr3);
+        set(62, xDelnotifyattr4);
+        set(63, xDelnotifyattr5);
+        set(64, useconfobj);
+        set(65, xUseconfobj);
+        set(66, confobjall);
+        set(67, xHasdelrowflagdef);
+        set(68, nlsshort);
+        set(69, nlsname);
+        set(70, cEntitygrpNm);
+        set(71, cEntitygrpName);
+        set(72, cEntitygrpNlsname);
+        set(73, cEntitygrpFullnm);
+        set(74, cEntitygrpFullname);
+        set(75, cEntitygrpFullnlsname);
+        set(76, cAncestorNm);
+        set(77, cAncestorName);
+        set(78, cAncestorNlsshort);
+        set(79, cAncestorNlsname);
+        set(80, cGetoptypeauto);
+        set(81, cOwnerformulaId);
+        set(82, cShortnameattrId);
+        set(83, nlsshortdesc);
+        set(84, cNameattrId);
+        set(85, nlslongdesc);
+        set(86, documentalist);
+        set(87, documentalistId);
+        set(88, documentalistDate);
+        set(89, documentalistCo);
+        set(90, fNettestbr);
+        set(91, fNettestnote);
+        set(92, fNettestRf);
     }
 }
