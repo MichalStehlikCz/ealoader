@@ -1,11 +1,8 @@
 package com.provys.ealoader.catalogue.dbloader;
 
 import com.provys.common.exception.InternalException;
-import com.provys.ealoader.catalogue.impl.EntityGrpImpl;
-import com.provys.ealoader.catalogue.impl.EntityGrpManagerImpl;
+import com.provys.ealoader.catalogue.impl.*;
 import com.provys.ealoader.catalogue.db.tables.records.CatEntitygrpVwRecord;
-import com.provys.ealoader.catalogue.impl.CatRepositoryImpl;
-import com.provys.ealoader.catalogue.impl.EntityGrpLoader;
 import com.provys.provysdb.ProvysDBContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -37,8 +34,8 @@ public class EntityGrpDbLoader implements EntityGrpLoader {
 
     @Nonnull
     @Override
-    public EntityGrpImpl loadById(CatRepositoryImpl repository, BigInteger id) {
-        List<EntityGrpImpl> result = new LoadRunner(repository.getEntityGrpManager(),
+    public EntityGrpProxy loadById(CatRepositoryImpl repository, BigInteger id) {
+        List<EntityGrpProxy> result = new LoadRunner(repository.getEntityGrpManager(),
                 CAT_ENTITYGRP_VW.ENTITYGRP_ID.eq(id)).
                 run();
         if (result.size() != 1) {
@@ -47,15 +44,32 @@ public class EntityGrpDbLoader implements EntityGrpLoader {
         return result.get(0);
     }
 
+    @Override
+    public void loadValue(CatRepositoryImpl repository, EntityGrpProxy entityGrpProxy) {
+        var result = loadById(repository, entityGrpProxy.getId());
+        if (result != entityGrpProxy) {
+            throw new InternalException(LOG, "Duplicate entityGrpProxy for id=" + entityGrpProxy.getId());
+        }
+    }
+
     @Nonnull
-    public Optional<EntityGrpImpl> loadByNameNm(CatRepositoryImpl repository, String nameNm) {
-        List<EntityGrpImpl> result = new LoadRunner(repository.getEntityGrpManager(),
+    public Optional<EntityGrpProxy> loadByNameNm(CatRepositoryImpl repository, String nameNm) {
+        List<EntityGrpProxy> result = new LoadRunner(repository.getEntityGrpManager(),
                 CAT_ENTITYGRP_VW.NAME_NM.eq(nameNm)).
                 run();
         if (result.size() > 1) {
             throw new InternalException(LOG, "Multiple EntityGrps items loaded by name_nm: " + result.size());
         }
         return (result.size() == 1) ? Optional.of(result.get(0)) : Optional.empty();
+    }
+
+    @Nonnull
+    @Override
+    public Set<EntityGrpProxy> loadByParentId(CatRepositoryImpl repository, BigInteger parentId) {
+        List<EntityGrpProxy> result = new LoadRunner(repository.getEntityGrpManager(),
+                CAT_ENTITYGRP_VW.PARENT_ID.eq(parentId)).
+                run();
+        return new HashSet<> (result);
     }
 
     public void loadAll(CatRepositoryImpl repository) {
@@ -89,33 +103,29 @@ public class EntityGrpDbLoader implements EntityGrpLoader {
             }
         }
 
-        private List<EntityGrpImpl> registerAll() {
+        private List<EntityGrpProxy> registerAll() {
             Objects.requireNonNull(entityGrpRecordById, "Load entity grp must be called before registerAll");
-            List<EntityGrpImpl> result = new ArrayList<>(entityGrpRecordById.size());
+            List<EntityGrpProxy> result = new ArrayList<>(entityGrpRecordById.size());
             for (var entityGrpRecord : entityGrpRecordById.values()) {
-                result.add(entityGrpManager.getByIdIfPresent(entityGrpRecord.getEntitygrpId()).
-                                orElse(entityGrpManager.register(createEntityGrp(entityGrpRecord))));
+                var entityGrpProxy = entityGrpManager.getOrAddById(entityGrpRecord.getEntitygrpId());
+                entityGrpProxy.setValue(createEntityGrp(entityGrpRecord));
+                if (!result.add(entityGrpProxy)) {
+                    throw new InternalException(LOG, "Entity group found in set - unexpected duplicity");
+                }
             }
             return result;
         }
 
         @Nonnull
-        private EntityGrpImpl createEntityGrp(CatEntitygrpVwRecord entityGrpRecord) {
-            return new EntityGrpImpl(entityGrpRecord.getEntitygrpId(),
-                    (entityGrpRecord.getParentId() == null) ? null : get(entityGrpRecord.getParentId()),
+        private EntityGrpValue createEntityGrp(CatEntitygrpVwRecord entityGrpRecord) {
+            return new EntityGrpValue(entityGrpRecord.getEntitygrpId(),
+                    (entityGrpRecord.getParentId() == null) ? null :
+                            entityGrpManager.getOrAddById(entityGrpRecord.getParentId()),
                     entityGrpRecord.getNameNm(), entityGrpRecord.getName(), entityGrpRecord.getNote(),
                     entityGrpRecord.getOrd());
         }
 
-        @Nonnull
-        private EntityGrpImpl get(BigInteger id) {
-            Objects.requireNonNull(entityGrpRecordById, "Load entity grp must be called before get");
-            var entityGrpRecord = entityGrpRecordById.get(Objects.requireNonNull(id));
-            return entityGrpManager.getByIdIfPresent(id).
-                    orElse(entityGrpManager.register(createEntityGrp(entityGrpRecord)));
-        }
-
-        List<EntityGrpImpl> run() {
+        List<EntityGrpProxy> run() {
             select();
             return registerAll();
         }

@@ -5,67 +5,117 @@ import com.provys.ealoader.catalogue.EntityGrp;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
+/**
+ * Value object representing entity group.
+ */
 public class EntityGrpValue {
 
     @Nonnull
-    private BigInteger id;
+    private final BigInteger id;
     @Nullable
-    private EntityGrp parent;
+    private final EntityGrp parent;
     @Nonnull
-    private String nameNm;
+    private final String nameNm;
     @Nonnull
-    private String name;
+    private final String name;
     @Nullable
-    private String note;
-    private int ord;
+    private final String note;
+    private final int ord;
 
-    EntityGrpValue(BigInteger id, @Nullable EntityGrp parent, String nameNm, String name, @Nullable String note,
+    public EntityGrpValue(BigInteger id, @Nullable EntityGrp parent, String nameNm, String name, @Nullable String note,
                   int ord) {
         this.id = Objects.requireNonNull(id);
         this.parent = parent;
-        this.nameNm = nameNm;
-        this.name = name;
+        this.nameNm = Objects.requireNonNull(nameNm);
+        this.name = Objects.requireNonNull(name);
         this.note = note;
         this.ord = ord;
     }
 
     @Nonnull
-    public BigInteger getId() {
+    BigInteger getId() {
         return id;
     }
 
     @Nonnull
-    public Optional<EntityGrp> getParent() {
+    Optional<EntityGrp> getParent() {
         return Optional.ofNullable(parent);
     }
 
     @Nonnull
-    public String getNameNm() {
+    String getNameNm() {
         return nameNm;
     }
 
     @Nonnull
-    public String getName() {
+    String getName() {
         return name;
     }
 
     @Nonnull
-    public Optional<String> getNote() {
+    Optional<String> getNote() {
         return Optional.ofNullable(note);
     }
 
-    public int getOrd() {
+    int getOrd() {
         return ord;
+    }
+
+    @Nonnull
+    List<Integer> getFullOrd() {
+        var result = getParent().map(EntityGrp::getFullOrd).orElse(new ArrayList<>(5));
+        result.add(getOrd());
+        return result;
+    }
+
+    /**
+     * Compares entity groups by their order within the same parent and by their parents starting from root. Parent is
+     * considered before its children.
+     * Note that based on server constraints, ord should be unique within parent (or within entity groups without
+     * parent) and thus comparison equality should be equal to object equality, even though it is not enforced by
+     * this class and is left on database and loader properly loading data from database.
+     *
+     * @param other is other entity group to be compared with
+     * @return -1 if full ordering of this is before other, 0 if both objects are the same and 1 if this object is after
+     * other
+     */
+    int compareTo(EntityGrp other) {
+        if (other.getParent() == getParent()) {
+            // most common comparison - comparing two children of the same parent
+            return Integer.compare(getOrd(), other.getOrd());
+        }
+        // calculate full path from root and compare paths...
+        List<Integer> myFullOrd = getFullOrd();
+        List<Integer> otherFullOrd = other.getFullOrd();
+        for (int i = 0; i < myFullOrd.size(); i++) {
+            if (i > otherFullOrd.size()) {
+                // same start but other is shorter -> other is before this (parent before child)
+                return 1;
+            }
+            if (myFullOrd.get(i) < otherFullOrd.get(i)) {
+                return -1;
+            } else if (myFullOrd.get(i) > otherFullOrd.get(i)) {
+                return 1;
+            }
+        }
+        if (myFullOrd.size() < otherFullOrd.size()) {
+            // start same but this is shorter -> this is before other (parent before child)
+            return -1;
+        }
+        // both objects are the same
+        return 0;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        EntityGrpImpl entityGrp = (EntityGrpImpl) o;
+        EntityGrpValue entityGrp = (EntityGrpValue) o;
         return getOrd() == entityGrp.getOrd() &&
                 Objects.equals(getId(), entityGrp.getId()) &&
                 Objects.equals(getParent(), entityGrp.getParent()) &&
@@ -79,4 +129,15 @@ public class EntityGrpValue {
         return Objects.hash(getId());
     }
 
+    @Override
+    public String toString() {
+        return "EntityGrpValue{" +
+                "id=" + id +
+                ", parent=" + (parent == null ? "null" : parent) +
+                ", nameNm=\"" + nameNm + '"' +
+                ", name=\"" + name + '"' +
+                ", note=" + (note == null ? "null" : '"' + note + '"') +
+                ", ord=" + ord +
+                '}';
+    }
 }

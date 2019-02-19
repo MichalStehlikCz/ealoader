@@ -1,33 +1,22 @@
 package com.provys.ealoader.catalogue;
 
+import com.provys.object.ProvysNmObject;
+
 import javax.annotation.Nonnull;
-import java.math.BigInteger;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
-import java.util.SortedSet;
 
 /**
  * Represents entity group in PROVYS
  */
-public interface EntityGrp extends Comparable<EntityGrp> {
-
-    /**
-     * @return Id (attribute ENTITYGRP_ID)
-     */
-    @Nonnull
-    BigInteger getId();
+public interface EntityGrp extends ProvysNmObject, Comparable<EntityGrp> {
 
     /**
      * @return parent entity group (entity group with Id PARENT_ID)
      */
     @Nonnull
     Optional<EntityGrp> getParent();
-
-    /**
-     * @return internal name (attribute NAME_NM)
-     */
-    @Nonnull
-    String getNameNm();
 
     /**
      * @return name (attribute NAME)
@@ -47,10 +36,16 @@ public interface EntityGrp extends Comparable<EntityGrp> {
     int getOrd();
 
     /**
-     * @return child entity groups, sorted by Ord
+     * @return child entity groups (read-only collection)
      */
     @Nonnull
-    SortedSet<EntityGrp> getChildren();
+    Collection<EntityGrp> getChildren();
+
+    /**
+     * @return entities in given entity group (read-only collection)
+     */
+    @Nonnull
+    Collection<Entity> getEntities();
 
     /**
      * @return ordering of given entity group (using ord column in full hierarchy of parents)

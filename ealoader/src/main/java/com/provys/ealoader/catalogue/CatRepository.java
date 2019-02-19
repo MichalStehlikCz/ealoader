@@ -9,4 +9,10 @@ public interface CatRepository {
      */
     @Nonnull
     EntityGrpManager getEntityGrpManager();
+
+    /**
+     * @return Entity manager
+     */
+    @Nonnull
+    EntityManager getEntityManager();
 }
