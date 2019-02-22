@@ -3,6 +3,7 @@ package com.provys.ealoader.catalogue.impl;
 import com.provys.common.exception.InternalException;
 import com.provys.ealoader.catalogue.Entity;
 import com.provys.ealoader.catalogue.EntityGrp;
+import com.provys.object.impl.ProvysNmObjectProxy;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -15,21 +16,19 @@ import java.util.*;
  *  Implements {@code EntityGrp} interface. Represents PROVYS ENTITYGRP object with specified Id. Implements lazy
  *  loading and lazy indexing to indices in entity group manager, uses entity group manager's loader to load values.
  */
-public class EntityGrpProxy implements EntityGrp {
+public class EntityGrpProxy extends ProvysNmObjectProxy<CatRepositoryImpl, EntityGrpValue> implements EntityGrp {
 
     @Nonnull
     private static final Logger LOG = LogManager.getLogger(EntityGrpProxy.class);
 
     @Nonnull
     private final CatRepositoryImpl repository;
-    @Nonnull
-    private final BigInteger id;
     @Nullable
     private EntityGrpValue value;
 
     EntityGrpProxy(CatRepositoryImpl repository, BigInteger id) {
+        super(repository, id);
         this.repository = Objects.requireNonNull(repository);
-        this.id = Objects.requireNonNull(id);
     }
 
     public synchronized void setValue(EntityGrpValue value) {
@@ -38,7 +37,7 @@ public class EntityGrpProxy implements EntityGrp {
         repository.getEntityGrpManager().registerChange(this, oldValue, value);
     }
 
-    private void loadValue() {
+    protected void loadValue() {
         repository.getEntityGrpManager().getLoader().loadValue(repository, this);
     }
 
@@ -51,12 +50,6 @@ public class EntityGrpProxy implements EntityGrp {
             }
         }
         return value;
-    }
-
-    @Nonnull
-    @Override
-    public BigInteger getId() {
-        return id;
     }
 
     @Nonnull

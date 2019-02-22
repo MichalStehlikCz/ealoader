@@ -1,6 +1,7 @@
 package com.provys.ealoader.catalogue.impl;
 
 import com.provys.ealoader.catalogue.EntityGrp;
+import com.provys.object.impl.ProvysNmObjectValue;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -13,14 +14,10 @@ import java.util.Optional;
 /**
  * Value object representing entity group.
  */
-public class EntityGrpValue {
+public class EntityGrpValue extends ProvysNmObjectValue {
 
-    @Nonnull
-    private final BigInteger id;
     @Nullable
     private final EntityGrp parent;
-    @Nonnull
-    private final String nameNm;
     @Nonnull
     private final String name;
     @Nullable
@@ -29,27 +26,16 @@ public class EntityGrpValue {
 
     public EntityGrpValue(BigInteger id, @Nullable EntityGrp parent, String nameNm, String name, @Nullable String note,
                   int ord) {
-        this.id = Objects.requireNonNull(id);
+        super(id, nameNm);
         this.parent = parent;
-        this.nameNm = Objects.requireNonNull(nameNm);
         this.name = Objects.requireNonNull(name);
         this.note = note;
         this.ord = ord;
     }
 
     @Nonnull
-    BigInteger getId() {
-        return id;
-    }
-
-    @Nonnull
     Optional<EntityGrp> getParent() {
         return Optional.ofNullable(parent);
-    }
-
-    @Nonnull
-    String getNameNm() {
-        return nameNm;
     }
 
     @Nonnull
@@ -112,29 +98,24 @@ public class EntityGrpValue {
     }
 
     @Override
-    public boolean equals(Object o) {
+    @SuppressWarnings("squid:S1206") // using Id as hash code is sufficient, no need to add additional fields
+    public boolean equals(@Nullable Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
         EntityGrpValue entityGrp = (EntityGrpValue) o;
         return getOrd() == entityGrp.getOrd() &&
-                Objects.equals(getId(), entityGrp.getId()) &&
                 Objects.equals(getParent(), entityGrp.getParent()) &&
-                Objects.equals(getNameNm(), entityGrp.getNameNm()) &&
                 Objects.equals(getName(), entityGrp.getName()) &&
                 Objects.equals(getNote(), entityGrp.getNote());
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hash(getId());
-    }
-
-    @Override
     public String toString() {
         return "EntityGrpValue{" +
-                "id=" + id +
+                "id=" + getId() +
                 ", parent=" + (parent == null ? "null" : parent) +
-                ", nameNm=\"" + nameNm + '"' +
+                ", nameNm=\"" + getNameNm() + '"' +
                 ", name=\"" + name + '"' +
                 ", note=" + (note == null ? "null" : '"' + note + '"') +
                 ", ord=" + ord +
