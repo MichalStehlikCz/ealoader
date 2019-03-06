@@ -61,7 +61,7 @@ class EALoaderInitializer implements Runnable {
         builder.add(builder.newRootLogger(logLevel).
                 add(builder.newAppenderRef("Log")).
                 addAttribute("additivity", true));
-        builder.add(builder.newLogger("org.jboss.weld", Level.WARN).
+        builder.add(builder.newLogger("org.jboss.weld", Level.INFO).
                 addAttribute("additivity", true));
         Configurator.initialize(builder.build());
         final Logger logger = LogManager.getLogger(EALoaderInitializer.class);

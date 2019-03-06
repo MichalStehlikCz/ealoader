@@ -57,6 +57,18 @@
             <artifactId>provysdb</artifactId>
         </dependency>
         <dependency>
+            <groupId>com.provys.catalogue</groupId>
+            <artifactId>catalogue-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.provys.catalogue</groupId>
+            <artifactId>catalogue-impl</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.provys.catalogue</groupId>
+            <artifactId>catalogue-dbloader</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.provys.ealoader</groupId>
             <artifactId>ealoader</artifactId>
             <version>${project.version}</version>

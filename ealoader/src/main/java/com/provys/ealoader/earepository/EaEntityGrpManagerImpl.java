@@ -1,7 +1,7 @@
 package com.provys.ealoader.earepository;
 
-import com.provys.ealoader.catalogue.EntityGrp;
-import com.provys.ealoader.catalogue.EntityGrpManager;
+import com.provys.catalogue.api.EntityGrp;
+import com.provys.catalogue.api.EntityGrpManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sparx.Collection;

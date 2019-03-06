@@ -1,6 +1,6 @@
 package com.provys.ealoader.earepository;
 
-import com.provys.ealoader.catalogue.EntityGrp;
+import com.provys.catalogue.api.EntityGrp;
 import org.sparx.Package;
 
 import javax.annotation.Nonnull;

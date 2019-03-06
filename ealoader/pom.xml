@@ -42,48 +42,9 @@
             <groupId>com.provys</groupId>
             <artifactId>provysdb</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.provys.catalogue</groupId>
+            <artifactId>catalogue-api</artifactId>
+        </dependency>
     </dependencies>
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>${jooqGroupId}</groupId>
-                <artifactId>jooq-codegen-maven</artifactId>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>generate</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <dependencies>
-                    <dependency>
-                        <groupId>com.oracle</groupId>
-                        <artifactId>ojdbc8</artifactId>
-                        <version>18.3.0</version>
-                    </dependency>
-                </dependencies>
-                <configuration>
-                    <jdbc>
-                        <driver>oracle.jdbc.OracleDriver</driver>
-                        <url>jdbc:oracle:thin:@localhost:60002:PVYS</url>
-                        <user>ealoader</user>
-                        <password>heslo</password>
-                    </jdbc>
-                    <generator>
-                        <database>
-                            <name>org.jooq.meta.oracle.OracleDatabase</name>
-                            <includes>CAT_ENTITYGRP_VW|CAT_ENTITY_VW|CAT_ATTR_VW|CAT_DOMAIN_VW|CAT_REL_VW</includes>
-                            <excludes></excludes>
-                            <inputSchema>CAT</inputSchema>
-                        </database>
-                        <generate/>
-                        <target>
-                            <packageName>com.provys.ealoader.catalogue.db</packageName>
-                            <directory>./src/main/java</directory>
-                        </target>
-                    </generator>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

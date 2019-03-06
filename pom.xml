@@ -146,6 +146,21 @@
                 <artifactId>provysdb</artifactId>
                 <version>1.0.0</version>
             </dependency>
+            <dependency>
+                <groupId>com.provys.catalogue</groupId>
+                <artifactId>catalogue-api</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.provys.catalogue</groupId>
+                <artifactId>catalogue-impl</artifactId>
+                <version>1.0.1</version>
+            </dependency>
+            <dependency>
+                <groupId>com.provys.catalogue</groupId>
+                <artifactId>catalogue-dbloader</artifactId>
+                <version>1.0.1</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
     <build>
@@ -213,11 +228,6 @@
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-deploy-plugin</artifactId>
                     <version>3.0.0-M1</version>
-                </plugin>
-                <plugin>
-                    <groupId>${jooqGroupId}</groupId>
-                    <artifactId>jooq-codegen-maven</artifactId>
-                    <version>3.11.7</version>
                 </plugin>
                 <plugin>
                     <groupId>io.swagger.core.v3</groupId>
