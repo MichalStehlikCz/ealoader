@@ -25,4 +25,10 @@ public interface EaRepository {
      */
     @Nonnull
     EaEntityGrpManager getEaEntityGrpManager();
+
+    /**
+     * @return Enterprise Architect entity manager
+     */
+    @Nonnull
+    EaEntityManager getEaEntityManager();
 }

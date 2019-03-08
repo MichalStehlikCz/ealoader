@@ -23,5 +23,6 @@ public class EALoader {
     public void run(Repository eaRepository) {
         this.eaRepository.setEaRepository(eaRepository);
         this.eaRepository.getEaEntityGrpManager().syncAllPackages();
+        this.eaRepository.getEaEntityManager().syncAllElements();
     }
 }

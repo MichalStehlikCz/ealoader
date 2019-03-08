@@ -69,23 +69,25 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
 
     private Package registerPackage(EntityGrp entityGrp) {
         Package parent = entityGrp.getParent().
-                map(parentEG -> packageById.computeIfAbsent(parentEG.getId(), this::getPackage)).
+                map(parentEG -> (packageById.get(parentEG.getId()) == null)
+                        ? getPackage(parentEG) : packageById.get(parentEG.getId())).
                 orElse(getDataModelPackage());
         Package result = getChildByAlias(parent, entityGrp.getNameNm()).
                 map(pkg -> {
-                    LOG.info("Found entity group {}", entityGrp.getNameNm());
+                    LOG.info("Found entity group {}", entityGrp::getNameNm);
                     return pkg;
                 }).
                 orElseGet(() -> {
-                    LOG.info("Register new entity group {}", entityGrp.getNameNm());
+                    LOG.info("Register new entity group {}", entityGrp::getNameNm);
                     Package newPackage = parent.GetPackages().AddNew(entityGrp.getName(), "Class");
+                    newPackage.Update();
                     newPackage.SetAlias(entityGrp.getNameNm());
+                    newPackage.Update();
                     return newPackage;
                 });
-        result.Update();
         // set mapping for given entity group
         if (packageById.put(entityGrp.getId(), result) != null) {
-            LOG.warn("Register invoked for entity group with already registered package {}", entityGrp.getNameNm());
+            LOG.warn("Register invoked for entity group with already registered package {}", entityGrp::getNameNm);
         }
         return result;
     }
@@ -105,28 +107,29 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
     }
 
     public void syncPackage(EntityGrp entityGrp) {
-        LOG.info("Synchronize package for entity group {}", entityGrp.getNameNm());
+        LOG.info("Synchronize package for entity group {}", entityGrp::getNameNm);
         Package result = getPackage(entityGrp);
         result.SetName(entityGrp.getName());
+        result.SetAlias(entityGrp.getNameNm());
         result.SetNotes(entityGrp.getNote().orElse(null));
         result.SetTreePos(entityGrp.getOrd());
         result.Update();
     }
 
     private void indicateUnusedEntityGrpChildren(EntityGrp parent) {
-        LOG.info("Find unused subpackages for entity group {}", parent.getNameNm());
+        LOG.info("Find unused subpackages for entity group {}", parent::getNameNm);
         Package parentPackage = getPackage(parent);
         for (var childPackage : parentPackage.GetPackages()) {
             if ((childPackage.GetAlias() == null) || (childPackage.GetAlias().isEmpty())) {
-                LOG.warn("Package {} with empty alias in entity group {}", childPackage.GetName(),
-                        parent.getNameNm());
+                LOG.warn("Package {} with empty alias in entity group {}", childPackage::GetName,
+                        parent::getNameNm);
             } else {
                 EntityGrp entityGrp = entityGrpManager.getByNameNmIfExists(childPackage.GetAlias()).orElse(null);
                 if (entityGrp == null) {
-                    LOG.warn("Package {} does not correspond to any entity group", childPackage.GetAlias());
+                    LOG.warn("Package {} does not correspond to any entity group", childPackage::GetAlias);
                 } else if (entityGrp.getParent().orElse(null) != parent) {
-                    LOG.warn("Entity group {} is not child of {}, package is", childPackage.GetAlias(),
-                            parent.getNameNm());
+                    LOG.warn("Entity group {} is not child of {}, package is", childPackage::GetAlias,
+                            parent::getNameNm);
                 }
             }
         }
