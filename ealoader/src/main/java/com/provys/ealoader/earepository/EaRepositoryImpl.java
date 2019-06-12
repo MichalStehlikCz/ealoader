@@ -21,7 +21,7 @@ public class EaRepositoryImpl implements EaRepository {
     @SuppressWarnings({"CdiUnproxyableBeanTypesInspection", "CdiInjectionPointsInspection"})
     @Inject
     EaRepositoryImpl(CatalogueRepository catRepository) {
-        eaEntityGrpManager = new EaEntityGrpManagerImpl(this, catRepository.getEntityGrpManager());
+        eaEntityGrpManager = new EaEntityGrpManagerImpl(this, catRepository);
         eaEntityManager = new EaEntityManagerImpl(this, catRepository.getEntityManager());
     }
 

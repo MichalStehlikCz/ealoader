@@ -1,7 +1,9 @@
 package com.provys.ealoader.earepository;
 
+import com.provys.catalogue.api.CatalogueRepository;
 import com.provys.catalogue.api.EntityGrp;
 import com.provys.catalogue.api.EntityGrpManager;
+import com.provys.catalogue.api.EntityManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.sparx.Collection;
@@ -11,6 +13,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.math.BigInteger;
 import java.util.*;
+import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ConcurrentHashMap;
 
 class EaEntityGrpManagerImpl implements EaEntityGrpManager {
@@ -22,14 +25,17 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
     private final EaRepository repository;
     @Nonnull
     private final EntityGrpManager entityGrpManager;
+    @Nonnull
+    private final EntityManager entityManager;
     @Nullable
     private Package dataModelPackage;
     @Nonnull
     private final Map<BigInteger, Package> packageById = new ConcurrentHashMap<>(10);
 
-    EaEntityGrpManagerImpl(EaRepository repository, EntityGrpManager entityGrpManager) {
+    EaEntityGrpManagerImpl(EaRepository repository, CatalogueRepository catalogueRepository) {
         this.repository = repository;
-        this.entityGrpManager = entityGrpManager;
+        this.entityGrpManager = catalogueRepository.getEntityGrpManager();
+        this.entityManager = catalogueRepository.getEntityManager();
     }
 
     /**
@@ -46,6 +52,7 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
                 return Optional.of(child);
             }
         }
+        children.destroy();
         return Optional.empty();
     }
 
@@ -57,12 +64,9 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
         if (dataModelPackage == null) {
             LOG.info("Find DATAMODEL package");
             Collection<Package> models = repository.getEaRepository().GetModels();
-            Package model = models.GetByName("PROVYS");
-            dataModelPackage = getChildByAlias(
-                    getChildByAlias(model, "APPLAYER").
-                            orElseThrow(() -> new RuntimeException("APPLAYER node not found")),
-                    "DATAMODEL").
-                    orElseThrow(() -> new RuntimeException("DATAMODEL node not found"));
+            Package model = models.GetByName("Product Model");
+            dataModelPackage = getChildByAlias(model, "DATA").
+                    orElseThrow(() -> new RuntimeException("DATA node not found"));
         }
         return dataModelPackage;
     }
@@ -109,11 +113,26 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
     public void syncPackage(EntityGrp entityGrp) {
         LOG.info("Synchronize package for entity group {}", entityGrp::getNameNm);
         Package result = getPackage(entityGrp);
-        result.SetName(entityGrp.getName());
-        result.SetAlias(entityGrp.getNameNm());
-        result.SetNotes(entityGrp.getNote().orElse(null));
-        result.SetTreePos(entityGrp.getOrd());
-        result.Update();
+        boolean update = false;
+        if (!result.GetName().equals(entityGrp.getName())) {
+            LOG.debug("Update name {} -> {}", result::GetName, entityGrp::getName);
+            update = true;
+            result.SetName(entityGrp.getName());
+        }
+        if (!result.GetNotes().equals(entityGrp.getNote().orElse(""))) {
+            LOG.debug("Update note {} -> {}", result::GetNotes, entityGrp::getNote);
+            update = true;
+            result.SetNotes(entityGrp.getNote().orElse(null));
+        }
+        if (result.GetTreePos() != entityGrp.getOrd()) {
+            LOG.debug("Update treepos {} -> {}", result::GetTreePos, entityGrp::getOrd);
+            update = true;
+            result.SetTreePos(entityGrp.getOrd());
+        }
+        if (update) {
+            result.Update();
+        }
+        repository.getEaEntityManager().mapElements(result);
     }
 
     private void indicateUnusedEntityGrpChildren(EntityGrp parent) {
@@ -140,6 +159,9 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
         // go through all entity groups and sync them; ordering is useful as this way we will process parents before
         // children
         SortedSet<EntityGrp> entityGrps = new TreeSet<>(entityGrpManager.getAll());
+        // we want to bulk load entities, as we will use them to match elements when passing packages and do not want
+        // to load them from database one by one
+        CompletableFuture.runAsync(entityManager::getAll);
         for (var entityGrp : entityGrps) {
             syncPackage(entityGrp);
         }

@@ -60,21 +60,8 @@ public class RunEALoader implements Runnable {
         return this;
     }
 
-    private static void addLoggerShutdownHook() {
-        Logger logger = LogManager.getRootLogger();
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            logger.info("Shutting down - closing application");
-            if (LogManager.getContext() instanceof LoggerContext) {
-                logger.debug("Shutting down log4j2");
-                Configurator.shutdown((LoggerContext) LogManager.getContext());
-            } else
-                logger.warn("Unable to shutdown log4j2");
-        }));
-    }
-
     @Override
     public void run() {
-        addLoggerShutdownHook();
         ConfigProviderResolver.instance().registerConfig(
                 ConfigProviderResolver.instance().getBuilder().forClassLoader(getClass().getClassLoader()).
                         withSources(new CommandLineParamsSource(provysAddress, provysUser, provysPwd)).build(),

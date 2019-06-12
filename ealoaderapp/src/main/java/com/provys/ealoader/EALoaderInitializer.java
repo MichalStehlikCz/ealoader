@@ -1,6 +1,5 @@
 package com.provys.ealoader;
 
-import com.provys.ealoader.executor.EALoader;
 import org.apache.logging.log4j.Level;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -21,7 +20,7 @@ import java.io.File;
 class EALoaderInitializer implements Runnable {
 
     @CommandLine.Option(names = {"-p", "--provysdb"},
-            description = "Provys database connect string (localhost:1521:PVYS)", defaultValue = "localhost:60002:PVYS")
+            description = "Provys database connect string (localhost:60002:PVYS)", defaultValue = "localhost:60002:PVYS")
     private String provysAddress;
 
     @CommandLine.Option(names = {"--provysuser"}, description = "Provys DB user", defaultValue = "ealoader")
