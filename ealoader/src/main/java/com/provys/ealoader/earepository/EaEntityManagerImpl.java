@@ -1,6 +1,7 @@
 package com.provys.ealoader.earepository;
 
 import com.provys.catalogue.api.Entity;
+import com.provys.catalogue.api.EntityGrp;
 import com.provys.catalogue.api.EntityManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -136,17 +137,32 @@ class EaEntityManagerImpl implements EaEntityManager {
     }
 
     public void mapElements(Package entityGrpPackage) {
+        var update = false;
         var elements = entityGrpPackage.GetElements();
-        for (var entityElement : elements) {
+        for (short i = 0; i < elements.GetCount(); i++) {
+            var entityElement = elements.GetAt(i);
             if (entityElement.GetType().equals(TYPE) && (entityElement.GetStereotype().equals(STEREOTYPE)) &&
                     (!entityElement.GetAlias().isEmpty())) {
                 var entity = entityManager.getByNameNmIfExists(entityElement.GetAlias());
-                entity.ifPresentOrElse(entity1 -> LOG.info("Entity {} found in package {}", entity1::getNameNm,
-                        entityGrpPackage::GetAlias),
-                        () -> LOG.info("Entity corresponding to element {} in package {} not found",
-                                entityElement::GetAlias, entityGrpPackage::GetAlias));
-
+                if (entity
+                        .flatMap(Entity::getEntityGrp)
+                        .map(EntityGrp::getNameNm)
+                        .filter(nameNm -> nameNm.equals(entityGrpPackage.GetAlias()))
+                        .isPresent()) {
+                    LOG.info("Entity {} found in group {}",
+                            entityElement::GetAlias, entityGrpPackage::GetAlias);
+                } else {
+                    LOG.info("Entity corresponding to element {} in package {} not found, removing",
+                            entityElement::GetAlias, entityGrpPackage::GetAlias
+                    );
+                    elements.Delete(i);
+                    update = true;
+                }
             }
+        }
+        if (update) {
+            entityGrpPackage.Update();
+            elements.destroy();
         }
     }
 }
