@@ -161,17 +161,17 @@
             <dependency>
                 <groupId>com.provys.catalogue</groupId>
                 <artifactId>catalogue-api</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.provys.catalogue</groupId>
                 <artifactId>catalogue-impl</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.3</version>
             </dependency>
             <dependency>
                 <groupId>com.provys.catalogue</groupId>
                 <artifactId>catalogue-dbloader</artifactId>
-                <version>1.0.4</version>
+                <version>1.0.3</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

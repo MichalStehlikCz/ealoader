@@ -11,14 +11,14 @@ public interface EaEntityManager {
 
      /**
      * @param entity is entity which we want to find
-     * @return element corresponding to given entity; registers element if one is not cached yet
+     * @return element corresponding to given entity; registers element if one is not created yet
      */
     @Nonnull
     Element getElement(Entity entity);
 
     /**
      * @param entityId is UID of entity which we want to find
-     * @return package corresponding to given entity group; register package if one is not cached yet
+     * @return element corresponding to given entity; register element if one is not created yet
      */
     @Nonnull
     Element getElement(BigInteger entityId);

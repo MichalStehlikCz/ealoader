@@ -31,4 +31,10 @@ public interface EaRepository {
      */
     @Nonnull
     EaEntityManager getEaEntityManager();
+
+    /**
+     * @return Enterprise Architect attribute manager
+     */
+    @Nonnull
+    EaAttrManager getEaAttrManager();
 }

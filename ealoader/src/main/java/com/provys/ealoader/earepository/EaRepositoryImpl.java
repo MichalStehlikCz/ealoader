@@ -17,12 +17,15 @@ public class EaRepositoryImpl implements EaRepository {
     private final EaEntityGrpManagerImpl eaEntityGrpManager;
     @Nonnull
     private final EaEntityManagerImpl eaEntityManager;
+    @Nonnull
+    private final EaAttrManagerImpl eaAttrManager;
 
     @SuppressWarnings({"CdiUnproxyableBeanTypesInspection", "CdiInjectionPointsInspection"})
     @Inject
     EaRepositoryImpl(CatalogueRepository catRepository) {
         eaEntityGrpManager = new EaEntityGrpManagerImpl(this, catRepository);
         eaEntityManager = new EaEntityManagerImpl(this, catRepository.getEntityManager());
+        eaAttrManager = new EaAttrManagerImpl(catRepository.getAttrManager());
     }
 
     @Nonnull
@@ -49,5 +52,11 @@ public class EaRepositoryImpl implements EaRepository {
     @Override
     public EaEntityManager getEaEntityManager() {
         return eaEntityManager;
+    }
+
+    @Nonnull
+    @Override
+    public EaAttrManager getEaAttrManager() {
+        return eaAttrManager;
     }
 }

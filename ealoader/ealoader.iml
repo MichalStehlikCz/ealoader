@@ -27,7 +27,7 @@
     <orderEntry type="library" name="Maven: org.osgi:org.osgi.annotation.versioning:1.0.0" level="project" />
     <orderEntry type="library" name="Maven: com.oracle:ojdbc8:18.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.oracle:ucp:18.3.0" level="project" />
-    <orderEntry type="library" name="Maven: com.provys.catalogue:catalogue-api:1.0.3" level="project" />
+    <orderEntry type="library" name="Maven: com.provys.catalogue:catalogue-api:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: com.provys.provysobject:provysobject-api:1.0.8" level="project" />
   </component>
 </module>

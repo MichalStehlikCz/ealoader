@@ -1,7 +1,6 @@
 package com.provys.ealoader.earepository;
 
 import com.provys.catalogue.api.Entity;
-import com.provys.catalogue.api.EntityGrp;
 import com.provys.catalogue.api.EntityManager;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,11 +39,13 @@ class EaEntityManagerImpl implements EaEntityManager {
                 orElseThrow());
         var childElements = entityGrpPackage.GetElements();
         for (var child : childElements) {
-            if ((child.GetAlias().equals(entity.getNameNm())) && (child.GetStereotype().equals(STEREOTYPE))) {
+            if ((child.GetAlias().equals(entity.getNameNm())) && child.GetType().equals(TYPE) &&
+                    (child.GetStereotype().equals(STEREOTYPE))) {
                 LOG.info("Found element corresponding to entity {}", entity::getNameNm);
                 if (elementById.put(entity.getId(), child) != null) {
                     LOG.warn("Adding existing entity {} to index", entity::getNameNm);
                 }
+                childElements.destroy();
                 return child;
             }
         }
@@ -78,12 +79,27 @@ class EaEntityManagerImpl implements EaEntityManager {
     }
 
     private void syncEntityElement(Entity entity, Element element) {
-        if (!element.GetName().equals(entity.getName()) ||
-                !element.GetNotes().equals(entity.getNote().orElse(""))) {
+        boolean update = false;
+        int packageId = entity.getEntityGrp()
+                .map(entityGrp -> repository.getEaEntityGrpManager().getPackage(entityGrp))
+                .map(Package::GetPackageID)
+                .orElse(-1);
+        if ((packageId != -1) && (element.GetPackageID() != packageId)) {
+            element.SetPackageID(packageId);
+            update = true;
+        }
+        if (!element.GetName().equals(entity.getName())) {
             element.SetName(entity.getName());
+            update = true;
+        }
+        if (!element.GetNotes().equals(entity.getNote().orElse(""))) {
             element.SetNotes(entity.getNote().orElse(null));
+            update = true;
+        }
+        if (update) {
             element.Update();
         }
+        repository.getEaAttrManager().syncForEntity(entity, element);
     }
 
     private void syncAncestorConnection(Entity entity, Element element) {
@@ -118,6 +134,7 @@ class EaEntityManagerImpl implements EaEntityManager {
 
     @Override
     public void syncElement(Entity entity) {
+         LOG.info("Synchronize entity element {}", entity::getNameNm);
          Element element = getElement(entity);
          syncEntityElement(entity, element);
          syncAncestorConnection(entity, element);
@@ -136,33 +153,71 @@ class EaEntityManagerImpl implements EaEntityManager {
         }
     }
 
-    public void mapElements(Package entityGrpPackage) {
-        var update = false;
-        var elements = entityGrpPackage.GetElements();
-        for (short i = 0; i < elements.GetCount(); i++) {
-            var entityElement = elements.GetAt(i);
-            if (entityElement.GetType().equals(TYPE) && (entityElement.GetStereotype().equals(STEREOTYPE)) &&
-                    (!entityElement.GetAlias().isEmpty())) {
-                var entity = entityManager.getByNameNmIfExists(entityElement.GetAlias());
-                if (entity
-                        .flatMap(Entity::getEntityGrp)
-                        .map(EntityGrp::getNameNm)
-                        .filter(nameNm -> nameNm.equals(entityGrpPackage.GetAlias()))
-                        .isPresent()) {
-                    LOG.info("Entity {} found in group {}",
+    /**
+     * Used to process elements of correct type in package and map them to entities / remove ones that cannot be mapped
+     */
+    private class ElementProcessor implements AutoCloseable {
+
+        private final Package entityGrpPackage;
+        private boolean update = false;
+        private org.sparx.Collection<Element> elements;
+        private short index;
+
+        private ElementProcessor(Package entityGrpPackage) {
+            this.entityGrpPackage = entityGrpPackage;
+            this.elements = entityGrpPackage.GetElements();
+        }
+
+        private void register(Element entityElement, Entity entity) {
+            if (elementById.get(entity.getId()) != null) {
+                if (!elementById.get(entity.getId()).GetElementGUID().equals(entityElement.GetElementGUID())) {
+                    /* in theory, we might prefer to keep one in correct package... but at the moment, we take it easy
+                       as it should not happen anyway if somebody didn't make a mistake */
+                    LOG.warn("Duplicate element found for entity {}; element in package {} removed",
                             entityElement::GetAlias, entityGrpPackage::GetAlias);
-                } else {
-                    LOG.info("Entity corresponding to element {} in package {} not found, removing",
-                            entityElement::GetAlias, entityGrpPackage::GetAlias
-                    );
-                    elements.Delete(i);
+                    elements.Delete(index);
                     update = true;
+                }
+            } else {
+                elementById.put(entity.getId(), entityElement);
+            }
+        }
+
+        private void removeNonExistent(Element entityElement) {
+            LOG.info("Entity corresponding to element {} in package {} not found, removing",
+                    entityElement::GetAlias, entityGrpPackage::GetAlias);
+            elements.Delete(index);
+            update = true;
+        }
+
+        private void process() {
+            for (index = 0; index < elements.GetCount(); index++) {
+                var entityElement = elements.GetAt(index);
+                if (entityElement.GetType().equals(TYPE) && (entityElement.GetStereotype().equals(STEREOTYPE)) &&
+                        (!entityElement.GetAlias().isEmpty())) {
+                    var entity = entityManager.getByNameNmIfExists(entityElement.GetAlias());
+                    entity.ifPresentOrElse(entity1 -> register(entityElement, entity1),
+                            () -> removeNonExistent(entityElement));
                 }
             }
         }
-        if (update) {
-            entityGrpPackage.Update();
-            elements.destroy();
+
+        @Override
+        public void close() {
+            if (update) {
+                entityGrpPackage.Update();
+            }
+            if (elements != null) {
+                elements.destroy();
+                elements = null;
+            }
+        }
+    }
+
+    @Override
+    public void mapElements(Package entityGrpPackage) {
+        try (var processor = new ElementProcessor(entityGrpPackage)) {
+            processor.process();
         }
     }
 }
