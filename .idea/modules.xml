@@ -3,7 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/EALoader.iml" filepath="$PROJECT_DIR$/EALoader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/ealoader/ealoader.iml" filepath="$PROJECT_DIR$/ealoader/ealoader.iml" />
+      <module fileurl="file://$PROJECT_DIR$/eadatamodel/ealoader.iml" filepath="$PROJECT_DIR$/eadatamodel/ealoader.iml" />
       <module fileurl="file://$PROJECT_DIR$/ealoaderapp/ealoaderapp.iml" filepath="$PROJECT_DIR$/ealoaderapp/ealoaderapp.iml" />
     </modules>
   </component>
