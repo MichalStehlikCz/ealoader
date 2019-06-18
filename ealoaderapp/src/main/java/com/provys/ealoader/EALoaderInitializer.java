@@ -15,8 +15,8 @@ import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 import java.io.File;
 
-@CommandLine.Command(description = "Load catalogue dtaa to Enterprise Architect database", name="ealoader",
-        mixinStandardHelpOptions = true, version = "0.9")
+@CommandLine.Command(description = "Load catalogue data to Enterprise Architect database", name="ealoader",
+        mixinStandardHelpOptions = true, version = "1.0")
 class EALoaderInitializer implements Runnable {
 
     @CommandLine.Option(names = {"-p", "--provysdb"},
