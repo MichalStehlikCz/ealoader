@@ -11,33 +11,23 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: info.picocli:picocli:4.0.0-beta-1b" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.weld.se:weld-se-shaded:3.1.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss:jandex:2.1.1.Final" level="project" />
-    <orderEntry type="library" name="Maven: io.smallrye:smallrye-config:1.3.7" level="project" />
-    <orderEntry type="library" name="Maven: org.eclipse.microprofile.config:microprofile-config-api:1.3" level="project" />
-    <orderEntry type="library" name="Maven: org.osgi:org.osgi.annotation.versioning:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.11.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.enterprise:cdi-api:2.0.SP1" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.el:javax.el-api:3.0.0" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.interceptor:javax.interceptor-api:1.2" level="project" />
     <orderEntry type="library" scope="PROVIDED" name="Maven: javax.inject:javax.inject:1" level="project" />
     <orderEntry type="library" name="Maven: javax.annotation:javax.annotation-api:1.3.2" level="project" />
-    <orderEntry type="library" name="Maven: org.jboss.logging:jboss-logging:3.4.0.Final" level="project" />
-    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-api:2.11.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.logging.log4j:log4j-core:2.11.2" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle:ojdbc8:18.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.sparx:eaapi:1.0.0" level="project" />
-    <orderEntry type="library" name="Maven: com.provys.common:common-exception:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: com.provys:provysdb:1.1.3" level="project" />
-    <orderEntry type="library" name="Maven: com.oracle:ucp:18.3.0" level="project" />
     <orderEntry type="library" name="Maven: org.jooq.pro:jooq:3.11.11" level="project" />
     <orderEntry type="library" name="Maven: javax.xml.bind:jaxb-api:2.2.12" level="project" />
+    <orderEntry type="library" name="Maven: com.google.code.findbugs:jsr305:3.0.2" level="project" />
+    <orderEntry type="library" name="Maven: com.provys.common:common-exception:1.0.4" level="project" />
+    <orderEntry type="library" name="Maven: com.provys:provysdb:1.1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.eclipse.microprofile.config:microprofile-config-api:1.3" level="project" />
+    <orderEntry type="library" name="Maven: org.osgi:org.osgi.annotation.versioning:1.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle:ojdbc8:18.3.0" level="project" />
+    <orderEntry type="library" name="Maven: com.oracle:ucp:18.3.0" level="project" />
     <orderEntry type="library" name="Maven: com.provys.catalogue:catalogue-api:1.0.4" level="project" />
     <orderEntry type="library" name="Maven: com.provys.provysobject:provysobject-api:1.0.8" level="project" />
-    <orderEntry type="library" name="Maven: com.provys.catalogue:catalogue-impl:1.0.4" level="project" />
-    <orderEntry type="library" name="Maven: com.provys.provysobject:provysobject-impl:1.0.8" level="project" />
-    <orderEntry type="library" name="Maven: com.provys.catalogue:catalogue-dbloader:1.0.4" level="project" />
-    <orderEntry type="module" module-name="eadatamodel" />
   </component>
 </module>

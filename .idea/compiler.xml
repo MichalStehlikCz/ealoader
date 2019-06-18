@@ -6,11 +6,12 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="ealoader" />
+        <module name="eadatamodel" />
         <module name="ealoaderapp" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
+      <module name="eadatamodel" target="11" />
       <module name="ealoader" target="11" />
       <module name="EALoader" target="1.5" />
       <module name="ealoaderapp" target="11" />
