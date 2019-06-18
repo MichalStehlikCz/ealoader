@@ -4,7 +4,7 @@
     <groupId>com.provys.ealoader</groupId>
     <artifactId>ealoader</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.0</version>
+    <version>1.0.1-SNAPSHOT</version>
     <modules>
         <module>eadatamodel</module>
         <module>ealoaderapp</module>
@@ -14,7 +14,7 @@
     </properties>
     <scm>
         <developerConnection>scm:git:https://github.com/MichalStehlikCz/ealoader.git</developerConnection>
-        <tag>v1.0.0</tag>
+        <tag>HEAD</tag>
     </scm>
     <dependencyManagement>
         <dependencies>
