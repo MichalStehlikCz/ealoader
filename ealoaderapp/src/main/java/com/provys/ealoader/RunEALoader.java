@@ -4,8 +4,6 @@ import com.provys.common.exception.RegularException;
 import com.provys.ealoader.executor.EALoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import org.apache.logging.log4j.core.LoggerContext;
-import org.apache.logging.log4j.core.config.Configurator;
 import org.eclipse.microprofile.config.spi.ConfigProviderResolver;
 import org.eclipse.microprofile.config.spi.ConfigSource;
 import org.sparx.Repository;
@@ -18,6 +16,10 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * Class is used as top level CDI bean inside WELD CDI container, initialized with parameters from desktop application
+ * object.
+ */
 @ApplicationScoped
 public class RunEALoader implements Runnable {
 
