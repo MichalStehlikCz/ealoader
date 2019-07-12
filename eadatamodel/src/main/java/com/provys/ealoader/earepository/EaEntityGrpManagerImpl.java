@@ -62,10 +62,10 @@ class EaEntityGrpManagerImpl implements EaEntityGrpManager {
     @Nonnull
     private Package getDataModelPackage() {
         if (dataModelPackage == null) {
-            LOG.info("Find DATAMODEL package");
+            LOG.info("Find DATA_MODEL package");
             Collection<Package> models = repository.getEaRepository().GetModels();
             Package model = models.GetByName("Product Model");
-            dataModelPackage = getChildByAlias(model, "DATA").
+            dataModelPackage = getChildByAlias(model, "DATA_MODEL").
                     orElseThrow(() -> new RuntimeException("DATA node not found"));
         }
         return dataModelPackage;
