@@ -1,6 +1,5 @@
-/*/*/target/
-/*/target/
-/target/
-/.idea/workspace.xml
-/.idea/libraries/
-/.idea/sonarlint/
+**/target/
+/.idea
+/.idea/
+**/*.iml
+*.log
