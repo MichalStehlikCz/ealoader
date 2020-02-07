@@ -4,7 +4,7 @@
     <groupId>com.provys.ealoader</groupId>
     <artifactId>ealoader</artifactId>
     <packaging>pom</packaging>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <modules>
         <module>impl</module>
         <module>restapi</module>
@@ -14,7 +14,7 @@
     </properties>
     <scm>
         <developerConnection>scm:git:https://github.com/MichalStehlikCz/ealoader.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>v1.0.1</tag>
     </scm>
     <repositories>
         <repository>
